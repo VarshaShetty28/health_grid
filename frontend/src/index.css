@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+body, html {
+    overflow-x: hidden;
+}
+/*This .active class we will get when we inspect the website and since we added to component to the 
+NavLink componentt whenever we are in the Home it will take clsaa=active whenever it is in Docters it woll set to the docters ul
+*/
+.active hr{
+    @apply block
+}
+
+.custome-btn{
+    @apply bg-primary text-white px-8 py-3 rounded-full font-light hidden md:block
+}
