@@ -37,7 +37,8 @@ const Header = () => {
             <p>Browse Our Trusted Doctors and Take Care of Your Health!</p>
           </div>
          <div className='mt-5'>
-         <a className='inline-flex hover:bg-orange-300 items-center gap-2 bg-white px-8 py-3 rounded-full text-black text-sm w-fit md:m-0 hover:scale-105 transition-all duration-300' href="">
+         <a className='inline-flex hover:bg-orange-300 items-center gap-2 bg-white px-8 py-3 rounded-full text-black text-sm w-fit md:m-0 hover:scale-105 transition-all duration-300' href="#speciality"> 
+          {/* //  given # bcs will give the id name as speciality in the sectioon where it want to go when user click this button */}
                 Book An Appointment <img className='w-3' src={assets.arrow_icon} alt="" />
           </a>
 
@@ -58,8 +59,8 @@ const Header = () => {
           ))}
           
           {/* Small Text Box */}
-          <div className="absolute bottom-6 right-6 bg-white bg-opacity-90 p-4 rounded-md shadow-md z-20">
-            <p className="text-sm font-medium text-gray-800">
+          <div className="absolute bottom-6 right-6 bg-white bg-opacity-90 p-4 rounded-md shadow-md z-20 cursor-pointer transition-all duration-300 opacity-100 translate-y-0 hover:-translate-y-2 hover:scale-105 hover:shadow-lg">
+            <p className="text-sm font-medium text-orange-400">
               Fast, easy, and no more excuses!
             </p>
           </div>

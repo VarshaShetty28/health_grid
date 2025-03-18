@@ -4,6 +4,12 @@ import group_profiles from './group_profiles.png'
 import profile_pic from './profile_pic.png'
 import contact_image from './contact_image.png'
 import about_image from './about_image.png'
+import Dentist from './Dentists.jpg'
+import Cardiologist from './Cardiologist.png'
+import Orthopedic from './Orthopedic.png'
+import Hepatologist from './Hepatologist.png'
+import Ontology from './Ontology.jpg'
+import Psychiatrist  from './Psychiatrist.jpg'
 import logo from './Logo_WithoutBg.png'
 import dropdown_icon from './dropdown_icon.svg'
 import menu_icon from './menu_icon.svg'
@@ -56,7 +62,17 @@ export const assets = {
     upload_icon,
     stripe_logo,
     razorpay_logo,
-    doc1,doc2,doc3,doc14
+    doc1,doc2,doc3,doc14,
+    Dermatologist,
+    Neurologist,
+    General_physician,
+    Pediatricians,
+    Gastroenterologist,
+    Cardiologist,
+    Orthopedic,
+    Ontology,
+    Psychiatrist ,
+    Hepatologist,
 }
 
 export const specialityData = [
@@ -84,7 +100,35 @@ export const specialityData = [
         speciality: 'Gastroenterologist',
         image: Gastroenterologist
     },
-]
+    {
+        speciality: 'Dentist',
+        image: Dentist // Add a pic
+    },
+    {
+        speciality: 'Cardiologist',
+        image:   Cardiologist// Add a pic
+    },
+    {
+        speciality: 'Orthopedic',
+        image: Orthopedic // Add a pic
+    },
+    {
+        speciality: 'Ontolog',
+        image: Ontology // Add a pic
+    },
+    {
+        speciality: 'Psychiatrist',
+        image: Psychiatrist // Add a pic
+    },
+    {
+        speciality: 'Hepatologist',
+        image: Hepatologist // Add a pic
+    }
+    
+    
+    
+];
+
 
 export const doctors = [
     {
