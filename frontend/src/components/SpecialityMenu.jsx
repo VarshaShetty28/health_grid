@@ -15,7 +15,7 @@ const SpecialityMenu = () => {
           specialty.speciality?.toLowerCase().includes(searchQuery.toLowerCase())
         );
 
-  console.log("Specialties Data:", specialties);
+  // console.log("Specialties Data:", specialties);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -103,7 +103,7 @@ const SpecialityMenu = () => {
                 <img
                   src={specialty.image}
                   alt={specialty.speciality || "Specialty"}
-                  className="h-20 w-20 object-contain"
+                  className="h-20 w-20 object-contain hover:translate-y-[-10px] transition-all duration-500"
                 />
               </div>
               <span className="text-sm font-medium">{specialty.speciality}</span>
