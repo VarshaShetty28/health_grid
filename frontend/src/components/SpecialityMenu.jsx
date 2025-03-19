@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { assets, specialityData } from "../assets/assets";
 
 const SpecialityMenu = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate(); // Initialize navigate function
 
-  // Ensure `specialities` is assigned correctly
+  // Ensure `specialties` is assigned correctly
   const specialties = specialityData || [];
 
   // Filter specialties based on search query
@@ -15,8 +17,6 @@ const SpecialityMenu = () => {
           specialty.speciality?.toLowerCase().includes(searchQuery.toLowerCase())
         );
 
-  // console.log("Specialties Data:", specialties);
-
   const handleSearch = (e) => {
     e.preventDefault();
     console.log("Searching for:", searchQuery);
@@ -24,6 +24,8 @@ const SpecialityMenu = () => {
 
   const handleSpecialtyClick = (specialty) => {
     console.log(`Selected specialty: ${specialty}`);
+    // Redirect to the doctors' availability page
+    navigate(`/doctors/${specialty.toLowerCase().replace(/\s+/g, "-")}`);
   };
 
   const handleClearSearch = () => {
