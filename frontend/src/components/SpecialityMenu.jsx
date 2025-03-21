@@ -36,7 +36,7 @@ const SpecialityMenu = () => {
     <div id="speciality" className="w-full max-w-4xl mx-auto px-4 py-8">
       {/* Header Section */}
       <div className="text-center mb-6">
-        <h1 className="text-3xl font-bold">
+        <h1 className="text-3xl font-bold text-orange-500">
           Search <span className="text-blue-500">Doctors</span>
         </h1>
         <p className="text-gray-600 mt-2">

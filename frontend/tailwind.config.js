@@ -9,6 +9,9 @@ export default {
                 colors:{
                   'primary' : "#5f6FFF"
                 },
+                gridTemplateColumns:{
+                    'auto' : 'repeat(auto-fill , minmax(200px,1fr))'
+                },
                 animation: {
                   'fade-in': 'fadeIn 0.5s ease-out forwards',
                 },
