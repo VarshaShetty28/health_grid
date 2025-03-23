@@ -9,4 +9,4 @@ The platform is designed to enhance overall healthcare management by offering a 
 The project is currently in its early stages, focusing on building a robust frontend with plans to integrate backend features and additional functionalities in the future.
 
 ## Contact
-For any queries or suggestions, feel free to reach out. 😊
+For any queries and  suggestions, feel free to reach out. 😊
