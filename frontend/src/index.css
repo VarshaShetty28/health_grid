@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,6 +11,9 @@ body, html {
 /*This .active class we will get when we inspect the website and since we added to component to the 
 NavLink componentt whenever we are in the Home it will take clsaa=active whenever it is in Docters it woll set to the docters ul
 */
+*{
+    font-family: Outfit;
+}
 .active hr{
     @apply block
 }

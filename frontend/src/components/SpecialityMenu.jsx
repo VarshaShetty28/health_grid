@@ -23,9 +23,9 @@ const SpecialityMenu = () => {
   };
 
   const handleSpecialtyClick = (specialty) => {
-    console.log(`Selected specialty: ${specialty}`);
+    // console.log(`Selected specialty: ${specialty}`);
     // Redirect to the doctors' availability page
-    navigate(`/doctors/${specialty.toLowerCase().replace(/\s+/g, "-")}`);
+    navigate(`/docters/${specialty.toLowerCase().replace(/\s+/g, "-")}`);
   };
 
   const handleClearSearch = () => {
