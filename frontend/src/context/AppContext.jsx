@@ -6,8 +6,10 @@ import { createContext } from "react";
 import { doctors } from '../assets/assets'
 export const AppContext = createContext()
 const AppContextProvider = (props) => {
+        const currencySymb = '$'
         const value = {
-                doctors
+                doctors,
+                currencySymb
         }
         return(
                 <AppContext.Provider value={value}>
