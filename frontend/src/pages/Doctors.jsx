@@ -6,6 +6,7 @@ const Doctors = () => {
   const { speciality } = useParams();
   const { doctors = [] } = useContext(AppContext);
   const [filterDoc, setFilterDoc] = useState([]);
+  const [showfilter,setShowFilter] = useState(false)
   const navigate = useNavigate();
 
   const specialties = [
@@ -44,28 +45,40 @@ const Doctors = () => {
   };
 
   return (
-    <div className="p-4 max-w-screen-xl mx-auto">
+    <div className=" mt-24 p-4 max-w-screen-xl mx-auto">
       <p className="text-primary font-semibold text-lg mb-4">Browse through the doctors</p>
+      <button
+          className={`py-2 px-6 border mb-5 rounded text-sm transition-all sm:hidden ${
+            showfilter ? "bg-primary text-white" : ""
+          }`}
+          onClick={() => setShowFilter((prev) => !prev)}
+        >
+          Filter
+        </button>
 
-      {/* Specialties as Light Boxes */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
-        {specialties.map((spec, idx) => (
-          <div
-            key={idx}
-            onClick={() => handleNavigate(spec)}
-            className={`p-4 rounded-xl shadow-sm border border-gray-200 cursor-pointer text-center text-sm font-medium transition-transform duration-300 hover:shadow-md hover:scale-[1.03] ${
-              speciality?.toLowerCase() === spec.toLowerCase()
-                ? "bg-blue-100 text-blue-600 border-blue-300"
-                : "bg-white text-gray-700"
-            }`}
-          >
-            {spec}
-          </div>
-        ))}
-      </div>
+        {/* Specialties as Light Boxes */}
+        <div
+          className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-8 
+            ${showfilter ? "flex" : "hidden sm:grid"} 
+            lg:flex lg:flex-wrap lg:gap-4 lg:justify-start`}
+        >
+          {specialties.map((spec, idx) => (
+            <div
+              key={idx}
+              onClick={() => handleNavigate(spec)}
+              className={`p-4 rounded-xl shadow-sm border border-gray-200 cursor-pointer text-center text-sm font-medium transition-transform duration-300 hover:shadow-md hover:scale-[1.03] ${
+                speciality?.toLowerCase() === spec.toLowerCase()
+                  ? "bg-blue-100 text-blue-600 border-blue-300"
+                  : "bg-white text-gray-700"
+              }`}
+            >
+              {spec}
+            </div>
+          ))}
+        </div>
 
       {/* Doctors Grid */}
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className=" w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filterDoc.length > 0 ? (
           filterDoc.map((item, index) => (
             <div

@@ -5,7 +5,7 @@ import HospitalMapEmbed from './HospitalMapEmbed';
 
 const ContactUs = () => {
   return (
-    <div className="max-w-6xl mx-auto py-2 font-sans px-4 md:px-0">
+    <div className="mt-20 max-w-6xl mx-auto py-2 font-sans px-4 md:px-0">
       {/* Header */}
       <div className="text-center text-3xl pt-10 text-gray-500 mb-14 font-medium">
         <p>CONTACT <span className="text-gray-700 font-semibold">US</span></p>

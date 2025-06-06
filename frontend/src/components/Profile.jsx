@@ -17,7 +17,7 @@ const Profile = () => {
   const [isEdit,setIsEdit] = useState(true)
 
   return (
-    <div className='max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-xl space-y-6 px-4 sm:px-6 md:px-8'>
+    <div className='mt-20 max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-xl space-y-6 px-4 sm:px-6 md:px-8'>
       <div className="flex flex-col items-center">
         <img src={userData.image} alt="" className="w-32 h-32 rounded-full object-cover mb-4 shadow-md" />
         {

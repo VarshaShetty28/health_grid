@@ -2,7 +2,10 @@ import React from 'react';
 
 const Footer = () => {
   return (
+    
     <footer className="bg-white text-black py-6 w-full border-gray-200">
+      {/* Divider */}
+        <hr className="mb-8 w-full border-t border-gray-300 my-1" />
       {/* Footer Container */}
       <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-medium text-center md:text-left">
         

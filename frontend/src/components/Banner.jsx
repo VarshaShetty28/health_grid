@@ -25,8 +25,7 @@ const Banner = () => {
           </button>
         </div>
 
-        {/* Divider */}
-        <hr className="w-full border-t border-gray-300 my-1" />
+        
       </div>
    </div>
   )

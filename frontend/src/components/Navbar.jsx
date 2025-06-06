@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 const Navbar = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
   const [token, setToken] = useState(true);
 
   const navLinkClass = ({ isActive }) =>
@@ -35,16 +36,58 @@ const Navbar = () => {
         <div className='flex items-center gap-4'>
           {
             token ?
-              <div className='flex items-center gap-2 cursor-pointer group relative'>
-                <img className='w-8 rounded-full' src={assets.profile_pic} alt="" />
-                <img className='w-2.5' src={assets.dropdown_icon} alt="" />
-                <div className='fixed top-0 right-36 pt-24 text-base font-medium text-gray-600 z-20 hidden group-hover:block'>
-                  <div className='min-w-48 bg-stone-100 rounded flex flex-col gap-4 p-4'>
-                    <p onClick={() => navigate('my-profile')} className='hover:text-black cursor-pointer'>My Profile</p>
-                    <p onClick={() => navigate('my-appointments')} className='hover:text-black cursor-pointer'>My Appointment</p>
-                    <p onClick={() => setToken(false)} className='hover:text-black cursor-pointer'>Logout</p>
-                  </div>
+              <div className='relative'>
+                <div 
+                  className='flex items-center gap-2 cursor-pointer'
+                  onClick={() => setShowDropdown(!showDropdown)}
+                >
+                  <img className='w-8 rounded-full' src={assets.profile_pic} alt="" />
+                  <img className='w-2.5' src={assets.dropdown_icon} alt="" />
                 </div>
+                
+                {showDropdown && (
+                  <>
+                    {/* Backdrop to close dropdown when clicking outside */}
+                    <div 
+                      className='fixed inset-0 z-10' 
+                      onClick={() => setShowDropdown(false)}
+                    ></div>
+                    
+                    {/* Dropdown Menu */}
+                    <div className='absolute right-0 top-full mt-2 z-20 bg-white rounded-lg shadow-lg border border-gray-200 min-w-48'>
+                      <div className='py-2'>
+                        <p 
+                          onClick={() => {
+                            navigate('my-profile');
+                            setShowDropdown(false);
+                          }} 
+                          className='px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-black cursor-pointer transition-colors'
+                        >
+                          My Profile
+                        </p>
+                        <p 
+                          onClick={() => {
+                            navigate('my-appointments');
+                            setShowDropdown(false);
+                          }} 
+                          className='px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-black cursor-pointer transition-colors'
+                        >
+                          My Appointments
+                        </p>
+                        <hr className='my-1 border-gray-200' />
+                        <p 
+                          onClick={() => {
+                            setToken(false);
+                            setShowDropdown(false);
+                          }} 
+                          className='px-4 py-2 text-red-600 hover:bg-red-50 hover:text-red-700 cursor-pointer transition-colors'
+                        >
+                          Logout
+                        </p>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
               :
               <button onClick={() => navigate('/login')} className='custome-btn'>Create Account</button>

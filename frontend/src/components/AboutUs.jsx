@@ -4,7 +4,7 @@ import aboutImage from '../assets/About_Us.avif';
 
 const AboutUs = () => {
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8 font-sans">
+    <div className=" mt-20 max-w-6xl mx-auto px-4 py-8 font-sans">
       {/* Header */}
       <div className="text-center mb-8 sm:mb-12">
         <h1 className="text-3xl sm:text-4xl font-bold text-gray-800">
