@@ -17,7 +17,7 @@ const Profile = () => {
   const [isEdit,setIsEdit] = useState(true)
 
   return (
-    <div className='max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-xl space-y-6'>
+    <div className='max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-xl space-y-6 px-4 sm:px-6 md:px-8'>
       <div className="flex flex-col items-center">
         <img src={userData.image} alt="" className="w-32 h-32 rounded-full object-cover mb-4 shadow-md" />
         {
@@ -26,7 +26,7 @@ const Profile = () => {
               type='text' 
               value={userData.name} 
               onChange={e => setUserData(prev => ({...prev,name:e.target.value}))}
-              className="text-xl font-semibold text-center border border-gray-300 rounded px-4 py-2"
+              className="text-xl font-semibold text-center border border-gray-300 rounded px-4 py-2 w-full max-w-xs sm:max-w-sm"
             />
           : <p className="text-2xl font-bold text-gray-800">{userData.name}</p>
         }
@@ -39,7 +39,7 @@ const Profile = () => {
         <div className="space-y-2">
           <div>
             <p className="text-sm font-medium text-gray-600">Email id:</p>
-            <p className="text-gray-800">{userData.email}</p>
+            <p className="text-gray-800 break-words">{userData.email}</p>
           </div>
 
           <div>
@@ -50,7 +50,7 @@ const Profile = () => {
                   type='text' 
                   value={userData.phone} 
                   onChange={e => setUserData(prev => ({...prev,phone:e.target.value}))}
-                  className="border border-gray-300 rounded px-3 py-1 w-full"
+                  className="border border-gray-300 rounded px-3 py-1 w-full max-w-xs sm:max-w-sm"
                 />
               : <p className="text-gray-800">{userData.phone}</p>
             }
@@ -65,16 +65,16 @@ const Profile = () => {
                     onChange={(e)=>setUserData(prev=>({...prev,address: {...prev.address, line1: e.target.value}}))} 
                     value={userData.address.line1} 
                     type="text"
-                    className="border border-gray-300 rounded px-3 py-1 w-full"
+                    className="border border-gray-300 rounded px-3 py-1 w-full max-w-xs sm:max-w-sm"
                   />
                   <input 
                     onChange={(e)=>setUserData(prev=>({...prev,address: {...prev.address, line2: e.target.value}}))} 
                     value={userData.address.line2} 
                     type="text"
-                    className="border border-gray-300 rounded px-3 py-1 w-full"
+                    className="border border-gray-300 rounded px-3 py-1 w-full max-w-xs sm:max-w-sm"
                   />
                 </div>
-              : <p className="text-gray-800">
+              : <p className="text-gray-800 whitespace-pre-line">
                   {userData.address.line1}
                   <br />
                   {userData.address.line2}
@@ -94,7 +94,7 @@ const Profile = () => {
               ? <select 
                   onChange={(e) => setUserData(prev => ({...prev,gender:e.target.value}))} 
                   value={userData.gender}
-                  className="border border-gray-300 rounded px-3 py-1 w-full"
+                  className="border border-gray-300 rounded px-3 py-1 w-full max-w-xs sm:max-w-sm"
                 >
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
@@ -111,7 +111,7 @@ const Profile = () => {
                   type='date' 
                   onChange={(e) => setUserData(prev => ({...prev,dob:e.target.value}))} 
                   value={userData.dob} 
-                  className="border border-gray-300 rounded px-3 py-1 w-full"
+                  className="border border-gray-300 rounded px-3 py-1 w-full max-w-xs sm:max-w-sm"
                 />
               : <p className="text-gray-800">{userData.dob}</p>
             }
@@ -124,13 +124,13 @@ const Profile = () => {
           isEdit 
           ? <button 
               onClick={()=>setIsEdit(false)} 
-              className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+              className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition w-full max-w-xs sm:max-w-sm"
             >
               Save Information
             </button>
           : <button 
               onClick={()=>setIsEdit(true)} 
-              className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition"
+              className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition w-full max-w-xs sm:max-w-sm"
             >
               Edit
             </button>

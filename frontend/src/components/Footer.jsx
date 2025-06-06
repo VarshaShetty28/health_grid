@@ -1,20 +1,30 @@
-import React from 'react'
+import React from 'react';
 
 const Footer = () => {
-    return (
+  return (
+    <footer className="bg-white text-black py-6 w-full border-gray-200">
+      {/* Footer Container */}
+      <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-medium text-center md:text-left">
         
-        <footer className="bg-white-800 text-black py-6 mt-8 w-full">
-            <hr className='borderLine'/>
-        <div className="w-full flex justify-between items-center px-6">
-          <p className="text-sm"> Copyright {new Date().getFullYear()}@ VarshaShetty- All Right Reserved.</p>
-          <ul className="flex space-x-4 text-black">
-            <li><a href="#" className="hover:text-gray-400">Privacy Policy</a></li>
-            <li><a href="#" className="hover:text-gray-400">Terms of Service</a></li>
-            <li><a href="#" className="hover:text-gray-400">Contact Us</a></li>
-          </ul>
-        </div>
-      </footer>
-      );
-}
+        {/* Copyright Text */}
+        <p>© {new Date().getFullYear()} Varsha Shetty – All Rights Reserved.</p>
+        
+        {/* Footer Links */}
+        <ul className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+          <li>
+            <a href="/about" className="hover:text-orange-500 transition-colors">Privacy Policy</a>
+          </li>
+          <li>
+            <a href="/about" className="hover:text-orange-500 transition-colors">Terms of Service</a>
+          </li>
+          <li>
+            <a href="/contact" className="hover:text-orange-500 transition-colors">Contact Us</a>
+          </li>
+        </ul>
 
-export default Footer
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
