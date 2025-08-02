@@ -19,7 +19,7 @@ const Doctors = () => {
     "Dentist",
     "Cardiologist",
     "Orthopedic",
-    "Ontologist",
+    "Otologist",
     "Psychiatrist",
     "Hepatologist"
   ];

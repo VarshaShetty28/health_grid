@@ -37,7 +37,7 @@ const RealtedDocters = ({speciality,docId}) => {
             ))}
        </div>
        <button 
-       onClick={ () => { navigate('/doctors'),scrollTo(0,0)}} //scrollTo(0,0) is used To redirectaS to The Top of the Doctors page only
+       onClick={ () => { navigate('/docters'),scrollTo(0,0)}} //scrollTo(0,0) is used To redirectaS to The Top of the Doctors page only
        className='bg-blue-50 text-gray-600 px-12 py-3 rounded-full mt-10'  >more</button>
     </div>
   )

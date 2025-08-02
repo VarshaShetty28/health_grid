@@ -36,6 +36,14 @@ import doc12 from './doc12.png'
 import doc13 from './doc13.png'
 import doc14 from './doc14.png'
 import doc15 from './doc15.png'
+import doc16 from './doc16.jpeg'
+import doc17 from './doc17.jpeg'
+import doc18 from './doc18.jpeg'
+import doc19 from './doc19.jpeg'
+import doc20 from './doc20.jpeg'
+import doc21 from './doc21.jpeg'
+import doc22 from './doc22.avif'
+import doc23 from './doc23.jpg'
 import Dermatologist from './Dermatologist.svg'
 import Gastroenterologist from './Gastroenterologist.svg'
 import General_physician from './General_physician.svg'
@@ -102,7 +110,7 @@ export const specialityData = [
     },
     {
         speciality: 'Dentist',
-        image: Dentist // Add a pic
+        image: Dentist
     },
     {
         speciality: 'Cardiologist',
@@ -139,7 +147,7 @@ export const doctors = [
         degree: 'MBBS',
         experience: '4 Years',
         about: 'Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
-        fees: 50,
+        fees: 250,
         address: {
             line1: '17th Cross, Richmond',
             line2: 'Circle, Ring Road, London'
@@ -153,7 +161,7 @@ export const doctors = [
         degree: 'MBBS',
         experience: '3 Years',
         about: 'Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
-        fees: 60,
+        fees: 360,
         address: {
             line1: '27th Cross, Richmond',
             line2: 'Circle, Ring Road, London'
@@ -167,7 +175,7 @@ export const doctors = [
         degree: 'MBBS',
         experience: '1 Years',
         about: 'Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
-        fees: 30,
+        fees: 230,
         address: {
             line1: '37th Cross, Richmond',
             line2: 'Circle, Ring Road, London'
@@ -181,7 +189,7 @@ export const doctors = [
         degree: 'MBBS',
         experience: '2 Years',
         about: 'Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
-        fees: 40,
+        fees: 340,
         address: {
             line1: '47th Cross, Richmond',
             line2: 'Circle, Ring Road, London'
@@ -195,7 +203,7 @@ export const doctors = [
         degree: 'MBBS',
         experience: '4 Years',
         about: 'Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
-        fees: 50,
+        fees: 250,
         address: {
             line1: '57th Cross, Richmond',
             line2: 'Circle, Ring Road, London'
@@ -209,7 +217,7 @@ export const doctors = [
         degree: 'MBBS',
         experience: '4 Years',
         about: 'Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
-        fees: 50,
+        fees: 250,
         address: {
             line1: '57th Cross, Richmond',
             line2: 'Circle, Ring Road, London'
@@ -223,7 +231,7 @@ export const doctors = [
         degree: 'MBBS',
         experience: '4 Years',
         about: 'Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
-        fees: 50,
+        fees: 150,
         address: {
             line1: '17th Cross, Richmond',
             line2: 'Circle, Ring Road, London'
@@ -237,7 +245,7 @@ export const doctors = [
         degree: 'MBBS',
         experience: '3 Years',
         about: 'Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
-        fees: 60,
+        fees: 360,
         address: {
             line1: '27th Cross, Richmond',
             line2: 'Circle, Ring Road, London'
@@ -251,7 +259,7 @@ export const doctors = [
         degree: 'MBBS',
         experience: '1 Years',
         about: 'Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
-        fees: 30,
+        fees: 230,
         address: {
             line1: '37th Cross, Richmond',
             line2: 'Circle, Ring Road, London'
@@ -265,7 +273,7 @@ export const doctors = [
         degree: 'MBBS',
         experience: '2 Years',
         about: 'Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
-        fees: 40,
+        fees: 140,
         address: {
             line1: '47th Cross, Richmond',
             line2: 'Circle, Ring Road, London'
@@ -279,7 +287,7 @@ export const doctors = [
         degree: 'MBBS',
         experience: '4 Years',
         about: 'Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
-        fees: 50,
+        fees: 350,
         address: {
             line1: '57th Cross, Richmond',
             line2: 'Circle, Ring Road, London'
@@ -292,8 +300,8 @@ export const doctors = [
         speciality: 'Neurologist',
         degree: 'MBBS',
         experience: '4 Years',
-        about: 'Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
-        fees: 50,
+        about: 'Dr. Patrick Harris has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
+        fees: 250,
         address: {
             line1: '57th Cross, Richmond',
             line2: 'Circle, Ring Road, London'
@@ -306,8 +314,8 @@ export const doctors = [
         speciality: 'General physician',
         degree: 'MBBS',
         experience: '4 Years',
-        about: 'Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
-        fees: 50,
+        about: 'Dr. Chloe Evans has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
+        fees: 150,
         address: {
             line1: '17th Cross, Richmond',
             line2: 'Circle, Ring Road, London'
@@ -320,8 +328,8 @@ export const doctors = [
         speciality: 'Gynecologist',
         degree: 'MBBS',
         experience: '3 Years',
-        about: 'Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
-        fees: 60,
+        about: 'Dr. Ryan Martinez has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
+        fees: 260,
         address: {
             line1: '27th Cross, Richmond',
             line2: 'Circle, Ring Road, London'
@@ -334,11 +342,125 @@ export const doctors = [
         speciality: 'Dermatologist',
         degree: 'MBBS',
         experience: '1 Years',
-        about: 'Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
-        fees: 30,
+        about: 'Dr. Amelia Hill has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
+        fees: 330,
         address: {
             line1: '37th Cross, Richmond',
             line2: 'Circle, Ring Road, London'
         }
     },
+    {
+        _id: 'doc16',
+        name: 'Dr. Sophiaj Bennett',
+        image: doc16,
+        speciality: 'Dentist',
+        degree: 'BDS, MDS (Orthodontics)',
+        experience: '7 Years',
+        about: 'Dr. Sophiaj Bennett is a highly experienced dental surgeon specializing in orthodontics. She is committed to enhancing smiles and promoting long-term oral health using advanced dental care techniques.',
+        fees: 450,
+        address: {
+            line1: '37th Cross, Richmond',
+            line2: 'Circle, Ring Road, London'
+        }
+    },
+    {
+        _id: 'doc17',
+        name: 'Dr. Priyesh Mishra',
+        image: doc17,
+        speciality: 'Cardiologist',
+        degree: 'MBBS, DM (Cardiology)',
+        experience: '9 Years',
+        about: 'Dr. Priyesh Mishra  has a passion for patient-centered cardiac care and specializes in interventional cardiology. He is known for her clear explanations and empathetic care.',
+        fees: 500,
+        address: {
+            line1: 'Maple Street',
+            line2: 'Connaught Place, Delhi'
+        }
+    },
+    {
+        _id: 'doc18',
+        name: 'Dr. Aarav Patel',
+        image: doc18,
+        speciality: 'Orthopedic',
+        degree: 'MBBS, MS (Orthopedics)',
+        experience: '10 Years',
+        about: 'Dr. Aarav Patel specializes in bone and joint disorders, with expertise in joint replacement and sports injuries. He emphasizes rehabilitation and patient education.',
+        fees: 460,
+        address: {
+            line1: 'Orthocare Complex',
+            line2: 'MG Road, Mumbai'
+        }
+    },
+    {
+        _id: 'doc19',
+        name: 'Dr. Vikram Sinha',
+        image: doc19,
+        speciality: 'Otologist',
+        degree: 'MBBS, MS (ENT)',
+        experience: '11 Years',
+        about: 'Dr. Vikram Sinha is an otologist specializing in middle ear surgeries and hearing restoration. He has vast experience treating chronic ear infections and balance disorders.',
+        fees: 180,
+        address: {
+            line1: 'Ear & Hearing Clinic',
+            line2: 'Bannerghatta Road, Bangalore'
+        }
+    },
+    {
+        _id: 'doc20',
+        name: 'Dr. Nihal Kapoor',
+        image: doc20,
+        speciality: 'Psychiatrist',
+        degree: 'MBBS, MD (Psychiatry)',
+        experience: '6 Years',
+        about: 'Dr. Nihal Kapoor specializes in adult mental health, stress management, and anxiety disorders. He combines modern psychiatry with a compassionate approach.',
+        fees: 350,
+        address: {
+            line1: 'Wellness Point',
+            line2: 'Indiranagar, Bangalore'
+        }
+    },
+    {
+        _id: 'doc21',
+        name: 'Dr. Bhavish Nair',
+        image: doc21,
+        speciality: 'Hepatologist',
+        degree: 'MBBS, DM (Hepatology)',
+        experience: '8 Years',
+        about: 'Dr. Bhavish Nair specializes in liver diseases including hepatitis, cirrhosis, and fatty liver. He advocates for early intervention and nutritional support.',
+        fees: 200,
+        address: {
+            line1: 'Liver Life Centre',
+            line2: 'Nungambakkam, Chennai'
+        }
+    },
+    {
+        _id: 'doc22',
+        name: 'Dr. Emily Grant',
+        image: doc22,
+        speciality: 'Psychiatrist',
+        degree: 'MBBS, MD (Psychiatry)',
+        experience: '10 Years',
+        about: 'Dr. Emily Grant Reed focuses on mood disorders, depression, and adolescent psychiatry. She integrates therapy and medication for holistic recovery.',
+        fees: 300,
+        address: {
+            line1: 'Hope Mental Health Centre',
+            line2: 'Brooklyn, New York'
+        }
+    },
+    {
+        _id: 'doc23',
+        name: 'Dr. Thomas Reed',
+        image: doc23,
+        speciality: 'Otologist',
+        degree: 'MBBS, MS (ENT)',
+        experience: '7 Years',
+        about: 'Dr. Thomas Reed is an ear specialist focusing on cochlear implants and vestibular disorders. He is known for her patient-first philosophy and gentle care.',
+        fees: 200,
+        address: {
+            line1: 'Harbor ENT Centre',
+            line2: 'Main Street, Sydney'
+        }
+    }
+
+
 ]

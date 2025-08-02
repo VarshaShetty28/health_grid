@@ -3,7 +3,7 @@ import Profile from '../components/Profile'
 
 const MyProfile = () => {
   return (
-    <div>
+    <div className='pt-10'>
       <Profile/>
     </div>
   )

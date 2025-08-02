@@ -116,7 +116,7 @@ const Appointment = () => {
         
         {/* Doctor Profile */}
         {docInfo && (
-          <div className="bg-white shadow-lg rounded-3xl p-8 flex flex-col md:flex-row gap-8">
+          <div className="bg-white shadow-lg rounded-3xl p-8 flex flex-col md:flex-row gap-8 py-32">
             <div className="flex-shrink-0">
               <img
                 src={docInfo?.image}
@@ -152,22 +152,26 @@ const Appointment = () => {
             <h2 className="text-xl font-bold text-gray-500">Booking slots</h2>
 
             {/* Date and Day Selector */}
-            <div className="flex overflow-x-scroll gap-4 items-center justify-center mt-4">
-              {
-                docslot.length && docslot.map((item, index) => (
-                  <div 
-                  onClick={()=> setSlotIndex(index)}
-                  className={`flex flex-col items-center shadow-lg rounded-lg p-4 min-w-max ${slotIndex === index ? 'bg-primary' : 'bg-white'}`} 
-                  key={index}>
-                  <p >{item[0] && daysOfWeek[item[0].datetime.getDay()]}</p>
-                  <p >{item[0] && item[0].datetime.getDate()}</p>
-                </div>
-
-                ))
-              }
-            </div>
-
-
+            <div className="flex overflow-x-auto gap-4 items-center mt-4 px-4 scroll-smooth snap-x pb-2"
+                    id="date-scroll-container">
+                    {docslot.length > 0 &&
+                      docslot.map((item, index) => (
+                        <div
+                          key={index}
+                          onClick={() => setSlotIndex(index)}
+                          className={`flex flex-col items-center shadow-md rounded-xl px-4 py-3 min-w-[80px] snap-start cursor-pointer
+                            ${slotIndex === index ? 'bg-primary text-white' : 'bg-white text-gray-800'}
+                            transition duration-200 ease-in-out`}
+                        >
+                          <p className="font-medium text-sm sm:text-base">
+                            {item[0] && daysOfWeek[item[0].datetime.getDay()]}
+                          </p>
+                          <p className="text-xs sm:text-sm">
+                            {item[0] && item[0].datetime.getDate()}
+                          </p>
+                        </div>
+                      ))}
+                  </div>
             {/* Time Slot Selector */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {docslot[slotIndex]?.map((item, index) => (
