@@ -3,11 +3,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
 import RealtedDocters from "../components/RealtedDocters";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const Appointment = () => {
   const { docId } = useParams();
   const navigate = useNavigate();
-  const { doctors, currencySymb, user } = useContext(AppContext);
+  const { doctors, currencySymb, user, backendUrl, token, getDoctorsData} = useContext(AppContext);
   const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
   const [docInfo, setDocInfo] = useState(null);
@@ -19,10 +21,14 @@ const Appointment = () => {
   const [bookingSuccess, setBookingSuccess] = useState(false);
   const [bookingError, setBookingError] = useState("");
   const [showConfirmModal, setShowConfirmModal] = useState(false); // New Modal State
+  const [bookedSlots, setBookedSlots] = useState({});
 
   const fetchDocInfo = async () => {
     const docInfo = doctors.find((doc) => doc._id === docId);
     setDocInfo(docInfo);
+
+    const booked = docInfo?.slots_booked || {};
+    setBookedSlots(booked);
   };
 
   const getAvailableSlot = async () => {
@@ -56,6 +62,66 @@ const Appointment = () => {
       setDocSlot((prev) => [...prev, timeSlots]);
     }
   };
+
+  const isSlotBooked = (datetime) => {
+    const day = datetime.getDate();
+    const month = datetime.getMonth() + 1;
+    const year = datetime.getFullYear();
+    const dateKey = `${day}_${month}_${year}`;
+    const time = datetime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }).toLowerCase();
+    const bookedForDay = bookedSlots?.[dateKey] || [];
+    return bookedForDay.map(t => t.toLowerCase()).includes(time);
+  };
+
+  //Api to book appointement
+
+  const bookAppointment = async () => {
+  if (!token) {
+    toast.warn("Login to Book Appointment");
+    return navigate("/login");
+  }
+
+  if (!selectedTime) {
+    toast.error("Please select a time slot.");
+    return;
+  }
+
+  try {
+    const date = docslot[slotIndex][0].datetime;
+
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
+    const slotDate = `${day}_${month}_${year}`;
+
+    const { data } = await axios.post(
+      backendUrl + "/api/user/book-appointment",
+      {
+        docId,
+        slotDate,
+        slotTime: selectedTime,
+      },
+      {
+        headers: {
+          token,
+        },
+      }
+    );
+
+    if (data.success) {
+      toast.success(data.message);
+      getDoctorsData();
+      navigate("/my-appointments");
+    } else {
+      toast.error(data.message || "Failed to book appointment");
+    }
+  } catch (error) {
+    console.error("Booking error:", error);
+    toast.error(error.response?.data?.message || "Booking failed.");
+  }
+};
+
 
   useEffect(() => {
     fetchDocInfo();
@@ -180,10 +246,14 @@ const Appointment = () => {
                   className={`px-4 py-2 rounded-xl text-sm font-semibold transition duration-200 ease-in-out
                     ${selectedTime === item.time 
                       ? "bg-blue-600 text-white" 
+                      : isSlotBooked(item.datetime)
+                      ? "bg-red-200 text-red-800 cursor-not-allowed"
                       : "bg-gray-100 text-gray-800 hover:bg-blue-500 hover:text-white"}`}
-                  onClick={() => handleTimeSelect(item.time)}
+                  onClick={() => !isSlotBooked(item.datetime) && handleTimeSelect(item.time)}
+                  disabled={isSlotBooked(item.datetime)}
                 >
                   {item.time.toLowerCase()}
+                  {isSlotBooked(item.datetime) && " (Booked)"}
                 </button>
               ))}
             </div>
@@ -212,7 +282,7 @@ const Appointment = () => {
                 Cancel
               </button>
               <button
-                onClick={handleBookAppointment}
+                onClick={bookAppointment}
                 disabled={isBooking || bookingSuccess}
                 className="flex-1 py-2 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700"
               >

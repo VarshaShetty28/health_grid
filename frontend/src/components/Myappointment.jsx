@@ -1,15 +1,44 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../context/AppContext'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const Myappointment = () => {
-  const { doctors } = useContext(AppContext)
+  const { backendUrl, token } = useContext(AppContext)
+  const [appointments, setAppointments] = useState([])
+  const months = [' ','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  const slotDateFormate = (slotDate) =>{
+    const dateArray = slotDate.split('_')
+    return dateArray[0]+" " + months[Number(dateArray[1])] + " " + dateArray[2]
+  }
+
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        const { data } = await axios.get(`${backendUrl}/api/user/my-appointments`, {
+          headers: { token },
+        });
+        if (data.success) {
+          setAppointments(data.appointments);
+        } else {
+          toast.error(data.message || "Could not fetch appointments");
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error("Error fetching appointments");
+      }
+    };
+
+    fetchAppointments();
+  }, []);
 
   return (
     <div className='pt-20 px-2 sm:px-4 max-w-4xl mx-auto'>
       <h1 className='text-xl sm:text-2xl font-bold text-gray-800 mb-6 mt-8'>My Appointments</h1>
       
       <div className='space-y-4'>
-        {doctors.slice(0,4).map((item,index)=>(
+        {appointments.map((item, index) => (
           <div 
             className='bg-white rounded-lg shadow-md border border-gray-200 p-4 hover:shadow-lg transition-shadow duration-300'
             key={index}>
@@ -20,19 +49,19 @@ const Myappointment = () => {
                 <div className='flex-shrink-0'>
                   <img
                     className='w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-lg bg-indigo-50 border border-gray-200'
-                    src={item.image} 
-                    alt={item.name} 
+                    src={item.docData.image} 
+                    alt={item.docData.name} 
                   />
                 </div>
                 
                 <div className='flex-1 min-w-0'>
-                  <h3 className='text-lg sm:text-xl font-semibold text-gray-800 truncate'>{item.name}</h3>
-                  <p className='text-blue-600 font-medium text-sm sm:text-base'>{item.speciality}</p>
+                  <h3 className='text-lg sm:text-xl font-semibold text-gray-800 truncate'>{item.docData.name}</h3>
+                  <p className='text-blue-600 font-medium text-sm sm:text-base'>{item.docData.speciality}</p>
                   
                   <div className='mt-2'>
                     <p className='text-gray-700 font-medium text-sm mb-1'>Address:</p>
-                    <p className='text-xs sm:text-sm text-gray-600 leading-tight'>{item.address.line1}</p>
-                    <p className='text-xs sm:text-sm text-gray-600 leading-tight'>{item.address.line2}</p>
+                    <p className='text-xs sm:text-sm text-gray-600 leading-tight'>{item.docData.address.line1}</p>
+                    <p className='text-xs sm:text-sm text-gray-600 leading-tight'>{item.docData.address.line2}</p>
                   </div>
                 </div>
               </div>
@@ -41,7 +70,7 @@ const Myappointment = () => {
               <div className='bg-blue-50 rounded-lg p-3 border border-blue-200'>
                 <p className='text-sm'>
                   <span className='font-semibold text-blue-800'>Date & Time: </span>
-                  <span className='text-blue-700'>1 June, 2025 | 2:30 PM</span>
+                  <span className='text-blue-700'>{slotDateFormate(item.slotDate)} | {item.slotTime}</span>
                 </p>
               </div>
               
@@ -58,9 +87,9 @@ const Myappointment = () => {
           </div>
         ))}
       </div>
-      
+
       {/* Empty State */}
-      {doctors.length === 0 && (
+      {appointments.length === 0 && (
         <div className='text-center py-12'>
           <div className='text-gray-400 text-6xl mb-4'>📅</div>
           <h3 className='text-xl font-semibold text-gray-600 mb-2'>No Appointments Yet</h3>

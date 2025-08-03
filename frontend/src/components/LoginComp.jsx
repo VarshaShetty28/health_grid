@@ -1,18 +1,52 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { AppContext } from '../context/AppContext'
+import axios from 'axios'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 const LoginComp = () => {
-const [state , setState] = useState('Sign Up')
 
+const { backendUrl, token, setToken } = useContext(AppContext)
+const [state , setState] = useState('Sign Up')
+const navigate = useNavigate()
 const [email,setEmail] = useState('')
 const [password,setPassword] = useState('')
 const [name,setName] = useState('')
 
 const onSubmitHandler = async (event)=>{
     event.preventDefault() //When user submit the form the website i snot reloads
-}
+    try{
+        if(state === 'Sign Up'){
+          const {data} = await axios.post(backendUrl+'/api/user/register',{name,password,email})
+          if (data.success) {
+            localStorage.setItem('token',data.token)
+            setToken(data.token)
+          }else{
+            toast.error(data.message)
+          }
+        } else{
+          const {data} = await axios.post(backendUrl+'/api/user/login',{password,email})
+          if (data.success) {
+            localStorage.setItem('token',data.token)
+            setToken(data.token)
+          } else{
+            toast.error(data.message)
+          }
+        }
+    } catch(error){
+      toast.error(error.message)
+    }
+  }
+
+  useEffect(()=>{
+    if(token){
+      navigate('/')
+    }
+
+  },[token])
 
   return (
-    <form className="min-h-[80vh] flex items-center justify-center bg-gray-100">
+  <form onSubmit={onSubmitHandler} className="min-h-[80vh] flex items-center justify-center bg-gray-100">
   <div className="flex flex-col gap-4 bg-white shadow-xl rounded-2xl p-8 min-w-[340px] w-full max-w-md">
     <h2 className="text-2xl font-bold text-gray-800">
       {state === 'Sign Up' ? 'Create Account' : 'Login'}

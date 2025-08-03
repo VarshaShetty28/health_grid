@@ -1,12 +1,19 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { assets } from '../assets/assets';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { AppContext } from '../context/AppContext';
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const {token, setToken,userData} = useContext(AppContext)
   const [showMenu, setShowMenu] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [token, setToken] = useState(true);
+  ;
+
+  const logout =()=>{
+    setToken('')
+    localStorage.removeItem('token')
+  }
 
   const navLinkClass = ({ isActive }) =>
     isActive ? 'text-blue-600 font-semibold py-1' : 'py-1';
@@ -41,7 +48,7 @@ const Navbar = () => {
                   className='flex items-center gap-2 cursor-pointer'
                   onClick={() => setShowDropdown(!showDropdown)}
                 >
-                  <img className='w-8 rounded-full' src={assets.profile_pic} alt="" />
+                  <img className='w-8 rounded-full' src={userData.image} alt="" />
                   <img className='w-2.5' src={assets.dropdown_icon} alt="" />
                 </div>
                 
@@ -77,7 +84,7 @@ const Navbar = () => {
                         <hr className='my-1 border-gray-200' />
                         <p 
                           onClick={() => {
-                            setToken(false);
+                            logout()
                             setShowDropdown(false);
                           }} 
                           className='px-4 py-2 text-red-600 hover:bg-red-50 hover:text-red-700 cursor-pointer transition-colors'
