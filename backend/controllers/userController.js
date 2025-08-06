@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import {v2 as cloudinary} from 'cloudinary'
 import docterModel from "../models/docterModel.js";
 import appointmntModel from "../models/appointmentModel.js";
+import razorpay from 'razorpay'
 //api to register new user
 const registerUser = async (req, res) => {
   try {
@@ -177,6 +178,49 @@ const getMyAppointments = async (req, res) => {
   }
 };
 
+// Api to cancle appointment 
 
+const cancelAppointment = async (req, res) => {
+  try {
+    const userId = req.user.id;  // ✅ Extract from token via auth middleware
+    const { appointmentId } = req.body;
 
-export { registerUser, loginUser, getProfile, updateProfile, bookAppointment, getMyAppointments};
+    const appointmentData = await appointmntModel.findById(appointmentId);
+
+    if (!appointmentData) {
+      return res.json({ success: false, message: 'Appointment not found' });
+    }
+
+    if (appointmentData.userId.toString() !== userId) {
+      return res.json({ success: false, message: 'Unauthorized action' });
+    }
+
+    await appointmntModel.findByIdAndUpdate(appointmentId, { cancelled: true });
+
+    const { docId, slotDate, slotTime } = appointmentData;
+    const doctorData = await docterModel.findById(docId);
+
+    let slots_booked = doctorData.slots_booked;
+    slots_booked[slotDate] = slots_booked[slotDate].filter(e => e !== slotTime);
+
+    await docterModel.findByIdAndUpdate(docId, { slots_booked });
+
+    res.json({ success: true, message: "Appointment Cancelled" });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+const razorpayInstance = new razorpay({
+  key_id:'',
+  key_secret:''
+})
+
+//Online payment method - razor pay is used
+
+const paymentRazorpay = async (req,res) =>{
+
+}
+
+export { registerUser, loginUser, getProfile, updateProfile, bookAppointment, getMyAppointments, cancelAppointment};

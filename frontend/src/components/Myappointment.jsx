@@ -4,7 +4,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 
 const Myappointment = () => {
-  const { backendUrl, token } = useContext(AppContext)
+  const { backendUrl, token, getDoctorsData} = useContext(AppContext)
   const [appointments, setAppointments] = useState([])
   const months = [' ','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -13,25 +13,47 @@ const Myappointment = () => {
     return dateArray[0]+" " + months[Number(dateArray[1])] + " " + dateArray[2]
   }
 
-  useEffect(() => {
-    const fetchAppointments = async () => {
-      try {
-        const { data } = await axios.get(`${backendUrl}/api/user/my-appointments`, {
-          headers: { token },
-        });
-        if (data.success) {
-          setAppointments(data.appointments);
-        } else {
-          toast.error(data.message || "Could not fetch appointments");
-        }
-      } catch (error) {
-        console.error(error);
-        toast.error("Error fetching appointments");
-      }
-    };
+  // Move this function OUTSIDE useEffect
+const fetchAppointments = async () => {
+  try {
+    const { data } = await axios.get(`${backendUrl}/api/user/my-appointments`, {
+      headers: { token },
+    });
+    if (data.success) {
+      setAppointments(data.appointments);
+    } else {
+      toast.error(data.message || "Could not fetch appointments");
+    }
+  } catch (error) {
+    console.error(error);
+    toast.error("Error fetching appointments");
+  }
+};
 
-    fetchAppointments();
-  }, []);
+useEffect(() => {
+  fetchAppointments();
+}, []);
+
+
+  const cancelAppointment = async (appointmentId) =>{
+    try{
+
+      // console.log(appointmentId)
+      //api call
+      const {data} = await axios.post(backendUrl + '/api/user/cancel-appointment',{appointmentId},{headers:{token}})
+      if ( data.success){
+        toast.success(data.message)
+        fetchAppointments()
+        getDoctorsData()
+      } else{
+        toast.error(data.message)
+      }
+
+    } catch(error){
+      console.error(error);
+      toast.error(error.message);
+    }
+  }
 
   return (
     <div className='pt-20 px-2 sm:px-4 max-w-4xl mx-auto'>
@@ -76,12 +98,13 @@ const Myappointment = () => {
               
               {/* Action Buttons */}
               <div className='flex gap-2 sm:gap-3'>
-                <button className='flex-1 bg-green-500 text-white px-4 py-2.5 rounded-lg font-medium hover:bg-green-600 transition-colors duration-300 shadow-sm hover:shadow-md text-sm sm:text-base'>
+                {!item.cancelled && <button className='flex-1 bg-green-500 text-white px-4 py-2.5 rounded-lg font-medium hover:bg-green-600 transition-colors duration-300 shadow-sm hover:shadow-md text-sm sm:text-base'>
                   Pay Online
-                </button>
-                <button className='flex-1 bg-red-500 text-white px-4 py-2.5 rounded-lg font-medium hover:bg-red-600 transition-colors duration-300 shadow-sm hover:shadow-md text-sm sm:text-base'>
-                  Cancel
-                </button>
+                </button>} 
+                {!item.cancelled && <button onClick={() => cancelAppointment(item._id)} className='flex-1 bg-red-500 text-white px-4 py-2.5 rounded-lg font-medium hover:bg-red-600 transition-colors duration-300 shadow-sm hover:shadow-md text-sm sm:text-base'>
+                  Cancel Appointment
+                </button>}
+                {item.cancelled && <button className='sm:min-w-48 py-2 border bg-red-200 border-red-700 rounded text-red-600'>Appointment Cancelled</button>}
               </div>
             </div>
           </div>
