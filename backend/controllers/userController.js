@@ -184,7 +184,7 @@ const getMyAppointments = async (req, res) => {
 
 const cancelAppointment = async (req, res) => {
   try {
-    const userId = req.user.id; // ✅ Extract from token via auth middleware
+    const userId = req.user.id; // Extract from token via auth middleware
     const { appointmentId } = req.body;
 
     const appointmentData = await appointmntModel.findById(appointmentId);
@@ -226,6 +226,7 @@ const razorpayInstance = new razorpay({
 const paymentRazorpay = async (req, res) => {
   try {
     const { appointmentId } = req.body;
+
     const appointmentData = await appointmntModel.findById(appointmentId);
     if (!appointmentData || appointmentData.cancelled) {
       return res.json({
@@ -234,19 +235,49 @@ const paymentRazorpay = async (req, res) => {
       });
     }
 
-    // Optoions for razor pay payment
-
+    //  Use appointmentData._id.toString() to ensure correct type
     const options = {
       amount: appointmentData.amount * 100,
-      currency: process.env.CURRENCY,
-      receipt: appointmentId,
+      currency: process.env.CURRENCY || "INR",
+      receipt: appointmentData._id.toString(), // this is critical
     };
 
-    //creation of an order
     const order = await razorpayInstance.orders.create(options);
     res.json({ success: true, order });
   } catch (error) {
-    console.log(error);
+    console.error("Error creating Razorpay order:", error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+//  API to verify the payment of Razorpay
+const verifyRazorpay = async (req, res) => {
+  try {
+    const { razorpay_order_id } = req.body;
+
+    const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id);
+    console.log("Order Info from Razorpay:", orderInfo);
+
+    if (orderInfo.status === 'paid') {
+      const updatedAppointment = await appointmntModel.findByIdAndUpdate(
+        orderInfo.receipt,
+        { payment: true },
+        { new: true }
+      );
+
+      if (!updatedAppointment) {
+        return res.json({
+          success: false,
+          message: "Payment verified, but appointment not found",
+        });
+      }
+
+      res.json({ success: true, message: "Payment Successful" });
+    } else {
+      res.json({ success: false, message: "Payment Failed" });
+    }
+  } catch (error) {
+    console.error("Error verifying Razorpay payment:", error);
     res.json({ success: false, message: error.message });
   }
 };
@@ -260,4 +291,5 @@ export {
   getMyAppointments,
   cancelAppointment,
   paymentRazorpay,
+  verifyRazorpay,
 };
