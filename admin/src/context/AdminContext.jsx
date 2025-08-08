@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -9,17 +9,72 @@ const AdminContextProvider = (props) => {
     localStorage.getItem("aToken") ? localStorage.getItem("aToken") : ""
   );
   const [doctors, setDoctors] = useState([]);
+  const [appointments, setAppointments] = useState([])
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+  // Function to check if token is expired
+  const isTokenExpired = (token) => {
+    if (!token) return true;
+    
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const currentTime = Date.now() / 1000;
+      return payload.exp < currentTime;
+    } catch (error) {
+      return true;
+    }
+  };
+
+  // Function to handle logout
+  const logout = () => {
+    setAToken("");
+    localStorage.removeItem("aToken");
+    setDoctors([]);
+    setAppointments([]);
+    toast.info("Session expired. Please login again.");
+  };
+
+  // Check token validity on component mount and token change
+  useEffect(() => {
+    if (aToken && isTokenExpired(aToken)) {
+      logout();
+    }
+  }, [aToken]);
+
+  // Enhanced axios interceptor to handle token errors
+  useEffect(() => {
+    const interceptor = axios.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response?.status === 401 || 
+            error.response?.data?.message?.includes("Token missing") ||
+            error.response?.data?.message?.includes("Invalid token") ||
+            error.response?.data?.message?.includes("jwt expired")) {
+          logout();
+        }
+        return Promise.reject(error);
+      }
+    );
+
+    return () => axios.interceptors.response.eject(interceptor);
+  }, []);
   
   const getAllDoctors = async () => {
     try {
+      // Check token before making request
+      if (!aToken || isTokenExpired(aToken)) {
+        logout();
+        return;
+      }
+
+      console.log("Backend URL:", backendUrl);
+      console.log("Token:", aToken);
+      
       const { data } = await axios.post(
-        `${backendUrl}/api/admin/all-doctors`,
-        {}, // Empty body, since it's a POST request
+        backendUrl + '/api/admin/all-doctors', 
+        {}, 
         {
-          headers: {
-            atoken: aToken,
-          },
+          headers: { aToken }
         }
       );
 
@@ -29,28 +84,91 @@ const AdminContextProvider = (props) => {
       } else {
         toast.error(data.message);
         console.log("No doctors");
+        
+        // If it's a token-related error, logout
+        if (data.message?.includes("Token") || data.message?.includes("authorized")) {
+          logout();
+        }
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || error.message);
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
       console.error("Error fetching doctors:", error);
+      
+      // Handle token expiry errors
+      if (errorMessage?.includes("jwt expired") || 
+          errorMessage?.includes("Invalid token") ||
+          error.response?.status === 401) {
+        logout();
+      }
     }
   };
 
-    const changeAvailability = async (docId) => {
-      try{
-
-      const {data} = await axios.post(backendUrl + '/api/admin/change-availability',{docId},{headers:{aToken}})
-      if(data.success){
-        toast.success(data.message)
-        getAllDoctors()
-      } else{
-        toast.error(data.message)
+  const changeAvailability = async (docId) => {
+    try {
+      if (!aToken || isTokenExpired(aToken)) {
+        logout();
+        return;
       }
 
-      }catch(error){
-          toast.error(error.message)
+      const { data } = await axios.post(
+        backendUrl + '/api/admin/change-availability', 
+        { docId }, 
+        { headers: { aToken } }
+      );
+      
+      if (data.success) {
+        toast.success(data.message);
+        getAllDoctors();
+      } else {
+        toast.error(data.message);
+        if (data.message?.includes("Token") || data.message?.includes("authorized")) {
+          logout();
+        }
+      }
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
+      
+      if (errorMessage?.includes("jwt expired") || 
+          errorMessage?.includes("Invalid token") ||
+          error.response?.status === 401) {
+        logout();
       }
     }
+  };
+
+  const getAllAppointments = async () => {
+    try {
+      if (!aToken || isTokenExpired(aToken)) {
+        logout();
+        return;
+      }
+
+      const { data } = await axios.get(
+        backendUrl + '/api/admin/appointments', 
+        { headers: { aToken } }
+      );
+      
+      if (data.success) {
+        setAppointments(data.appointments);
+      } else {
+        toast.error(data.message);
+        if (data.message?.includes("Token") || data.message?.includes("authorized")) {
+          logout();
+        }
+      }
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || error.message;
+      toast.error(errorMessage);
+      
+      if (errorMessage?.includes("jwt expired") || 
+          errorMessage?.includes("Invalid token") ||
+          error.response?.status === 401) {
+        logout();
+      }
+    }
+  };
 
   const value = {
     aToken,
@@ -59,6 +177,11 @@ const AdminContextProvider = (props) => {
     doctors,
     getAllDoctors,
     changeAvailability,
+    appointments,
+    setAppointments,
+    getAllAppointments,
+    logout, // Export logout function
+    isTokenExpired // Export token check function
   };
 
   return (

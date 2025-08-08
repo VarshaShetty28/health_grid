@@ -1,33 +1,59 @@
-// FILE: controllers/adminController.js
-
 import validator from "validator"
 import bcrypt from 'bcrypt'
 import { v2 as cloudinary } from "cloudinary"
 import docterModel from '../models/docterModel.js'
 import jwt from 'jsonwebtoken'
+import appointmntModel from "../models/appointmentModel.js"
 
 const addDoctor = async (req, res) => {
     try {
         const { name, email, password, speciality, degree, experience, about, fees, address } = req.body;
         const imageFile = req.file;
 
+        // Check for missing fields
         if (!name || !email || !password || !speciality || !degree || !experience || !about || !fees || !address) {
-            return res.json({ success: false, message: "Missing details" });
+            return res.status(400).json({ success: false, message: "Missing details" });
         }
 
+        // Check for image file
+        if (!imageFile) {
+            return res.status(400).json({ success: false, message: "Image is required" });
+        }
+
+        // Validate email
         if (!validator.isEmail(email)) {
-            return res.json({ success: false, message: "Invalid Email" });
+            return res.status(400).json({ success: false, message: "Invalid Email" });
         }
 
+        // Check if email already exists
+        const existingDoctor = await docterModel.findOne({ email });
+        if (existingDoctor) {
+            return res.status(400).json({ success: false, message: "Email already exists" });
+        }
+
+        // Validate password strength
         if (password.length < 8) {
-            return res.json({ success: false, message: "Weak password" });
+            return res.status(400).json({ success: false, message: "Password must be at least 8 characters long" });
         }
 
+        // Hash password
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        const imageUpload = await cloudinary.uploader.upload(imageFile.path, { resource_type: "image" });
+        // Upload image to cloudinary
+        const imageUpload = await cloudinary.uploader.upload(imageFile.path, { 
+            resource_type: "image",
+            folder: "doctors" // organize uploads in folders
+        });
         const imageUrl = imageUpload.secure_url;
+
+        // Parse address safely
+        let parsedAddress;
+        try {
+            parsedAddress = JSON.parse(address);
+        } catch (error) {
+            return res.status(400).json({ success: false, message: "Invalid address format" });
+        }
 
         const doctorData = {
             name,
@@ -38,54 +64,132 @@ const addDoctor = async (req, res) => {
             degree,
             experience,
             about,
-            fees,
-            address: JSON.parse(address),
+            fees: Number(fees), // Ensure fees is a number
+            address: parsedAddress,
+            available: true, // Default to available
             date: Date.now()
         };
 
         const newDoctor = new docterModel(doctorData);
         await newDoctor.save();
 
-        res.json({ success: true, message: "Doctor added" });
+        res.status(201).json({ success: true, message: "Doctor added successfully" });
     } catch (error) {
-        console.log(error);
-        res.json({ success: false, message: error.message });
+        console.log("Add Doctor Error:", error);
+        res.status(500).json({ success: false, message: "Server error while adding doctor" });
     }
 };
-
 
 const loginAdmin = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
-         
-           const token = jwt.sign(
-                { email: process.env.ADMIN_EMAIL },
-                process.env.JWT_SECRET,
-                { expiresIn: '1d' }
-                );
-
-
-            res.json({ success: true, message: "Login successful", token });
-        } else {
-            res.json({ success: false, message: "Invalid credentials" });
+        // Validate input
+        if (!email || !password) {
+            return res.status(400).json({ success: false, message: 'Email and password are required' });
         }
+
+        // Check credentials
+        if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+            const token = jwt.sign(
+                { 
+                    email: email,
+                    role: 'admin',
+                    iat: Math.floor(Date.now() / 1000) // issued at time
+                }, 
+                process.env.JWT_SECRET, 
+                { expiresIn: '1d' }
+            );
+            
+            return res.status(200).json({ 
+                success: true, 
+                token,
+                message: 'Login successful' 
+            });
+        }
+
+        return res.status(401).json({ success: false, message: 'Invalid credentials' });
     } catch (error) {
-        console.log(error);
-        res.json({ success: false, message: error.message });
+        console.log("Login Error:", error);
+        res.status(500).json({ success: false, message: 'Server error during login' });
     }
 };
-
 
 const allDoctors = async (req, res) => {
     try {
-        const doctors = await docterModel.find({}).select('-password');
-        res.json({ success: true, doctors });
+        const doctors = await docterModel.find({}).select('-password').sort({ date: -1 });
+        
+        if (!doctors || doctors.length === 0) {
+            return res.status(200).json({ 
+                success: true, 
+                doctors: [], 
+                message: 'No doctors found' 
+            });
+        }
+
+        res.status(200).json({ 
+            success: true, 
+            doctors,
+            count: doctors.length 
+        });
     } catch (error) {
-        console.log(error);
-        res.json({ success: false, message: error.message });
+        console.log("Get All Doctors Error:", error);
+        res.status(500).json({ success: false, message: "Server error while fetching doctors" });
     }
 };
 
-export { addDoctor, loginAdmin, allDoctors };
+const appointmentsAdmin = async (req, res) => {
+    try {
+        const appointments = await appointmntModel
+            .find({})
+            .populate('docId', 'name speciality') // populate doctor details
+            .populate('userId', 'name email') // populate user details if available
+            .sort({ date: -1, slotTime: 1 });
+
+        res.status(200).json({ 
+            success: true, 
+            appointments,
+            count: appointments.length 
+        });
+    } catch (error) {
+        console.log("Get Appointments Error:", error);
+        res.status(500).json({ success: false, message: "Server error while fetching appointments" });
+    }
+};
+
+const changeAvailability = async (req, res) => {
+    try {
+        const { docId } = req.body;
+
+        // Validate docId
+        if (!docId) {
+            return res.status(400).json({ success: false, message: 'Doctor ID is required' });
+        }
+
+        // Check if doctor exists
+        const docData = await docterModel.findById(docId);
+        if (!docData) {
+            return res.status(404).json({ success: false, message: 'Doctor not found' });
+        }
+
+        // Update availability
+        const updatedDoctor = await docterModel.findByIdAndUpdate(
+            docId, 
+            { available: !docData.available },
+            { new: true } // Return updated document
+        );
+
+        const status = updatedDoctor.available ? 'Available' : 'Not Available';
+        
+        res.status(200).json({ 
+            success: true, 
+            message: `Doctor is now ${status}`,
+            available: updatedDoctor.available 
+        });
+    } catch (error) {
+        console.log("Change Availability Error:", error);
+        res.status(500).json({ success: false, message: "Server error while changing availability" });
+    }
+};
+
+export { addDoctor, loginAdmin, allDoctors, appointmentsAdmin, changeAvailability };

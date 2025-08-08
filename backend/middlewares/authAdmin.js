@@ -2,7 +2,8 @@ import jwt from 'jsonwebtoken';
 
 const authAdmin = async (req, res, next) => {
   try {
-    const token = req.headers['atoken'] || req.headers['Atoken'] || req.headers['Atoken'.toLowerCase()];
+    // Fix: Check for the correct token header (lowercase 'atoken')
+    const token = req.headers.atoken;
 
     if (!token) {
       return res.json({ success: false, message: 'Token missing. Not authorized, login again.' });
@@ -16,6 +17,7 @@ const authAdmin = async (req, res, next) => {
 
     next();
   } catch (err) {
+    console.log("Auth error:", err);
     return res.json({ success: false, message: 'Invalid token. Not authorized, login again.' });
   }
 };
