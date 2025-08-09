@@ -10,6 +10,7 @@ const AdminContextProvider = (props) => {
   );
   const [doctors, setDoctors] = useState([]);
   const [appointments, setAppointments] = useState([])
+  const [dashData, setDashData] = useState(false)
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   // Function to check if token is expired
@@ -128,7 +129,7 @@ const AdminContextProvider = (props) => {
       }
     } catch (error) {
       const errorMessage = error.response?.data?.message || error.message;
-      toast.error(errorMessage);
+      toast.error(error.message);
       
       if (errorMessage?.includes("jwt expired") || 
           errorMessage?.includes("Invalid token") ||
@@ -152,6 +153,7 @@ const AdminContextProvider = (props) => {
       
       if (data.success) {
         setAppointments(data.appointments);
+        console.log(data.appointments)
       } else {
         toast.error(data.message);
         if (data.message?.includes("Token") || data.message?.includes("authorized")) {
@@ -170,6 +172,37 @@ const AdminContextProvider = (props) => {
     }
   };
 
+  const cancelAppointment = async (appointmentId) =>{
+    try{
+
+      const { data } = await axios.post(backendUrl+'/api/admin/cancel-appointment',{appointmentId},{headers:{aToken}})
+      if(data.success){
+        toast.success(data.message)
+        getAllAppointments()
+      } else{
+        toast.error(data.message)
+      }
+
+    } catch(error){
+      toast.error(error.message);
+    }
+  }
+  const getDashData = async () => {
+    try{
+      const { data } = await axios.get(backendUrl+'/api/admin/dashboard',{headers:{aToken}})
+       if(data.success)
+        {
+            setDashData(data.dash_data); 
+            console.log(data.dash_data);
+
+        } else{
+             toast.error(data.message)
+        }
+    } catch (error){
+        toast.error(error.message);
+    }
+  }
+
   const value = {
     aToken,
     setAToken,
@@ -181,7 +214,10 @@ const AdminContextProvider = (props) => {
     setAppointments,
     getAllAppointments,
     logout, // Export logout function
-    isTokenExpired // Export token check function
+    isTokenExpired, // Export token check function
+    cancelAppointment,
+    dashData,
+    getDashData
   };
 
   return (

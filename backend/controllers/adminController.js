@@ -4,6 +4,7 @@ import { v2 as cloudinary } from "cloudinary"
 import docterModel from '../models/docterModel.js'
 import jwt from 'jsonwebtoken'
 import appointmntModel from "../models/appointmentModel.js"
+import userModel from "../models/userModel.js"
 
 const addDoctor = async (req, res) => {
     try {
@@ -191,5 +192,55 @@ const changeAvailability = async (req, res) => {
         res.status(500).json({ success: false, message: "Server error while changing availability" });
     }
 };
+//API for appointments cancellation
+const appointmentCancel = async (req, res) => {
+  try {
 
-export { addDoctor, loginAdmin, allDoctors, appointmentsAdmin, changeAvailability };
+    const { appointmentId } = req.body;
+
+    const appointmentData = await appointmntModel.findById(appointmentId);
+
+    if (!appointmentData) {
+      return res.json({ success: false, message: "Appointment not found" });
+    }
+    await appointmntModel.findByIdAndUpdate(appointmentId, { cancelled: true });
+
+    const { docId, slotDate, slotTime } = appointmentData;
+    const doctorData = await docterModel.findById(docId);
+
+    let slots_booked = doctorData.slots_booked;
+    slots_booked[slotDate] = slots_booked[slotDate].filter(
+      (e) => e !== slotTime
+    );
+
+    await docterModel.findByIdAndUpdate(docId, { slots_booked });
+
+    res.json({ success: true, message: "Appointment Cancelled" });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+//api for dashboard
+
+const adminDashboard = async (req,res) => {
+    try{
+        const doctors = await docterModel.find({})
+        const users = await userModel.find({})
+        const appointments = await appointmntModel.find({})
+        const dash_data = {
+            doctors: doctors.length,
+            appointments: appointments.length,
+            patients: users.length,
+            latestAppointments: appointments.reverse().slice(0,5)
+
+        }
+        res.json({success: true, dash_data})
+
+    } catch(error){
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+}
+export { addDoctor, loginAdmin, allDoctors, appointmentsAdmin, changeAvailability, appointmentCancel, adminDashboard };
