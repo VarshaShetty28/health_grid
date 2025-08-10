@@ -79,7 +79,9 @@ const AllAppointment = () => {
                     <p className="bg-red-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600 transition">
                       Cancelled
                     </p>
-                  ) : (
+                  ) : item.isCompleted
+                  ? <p className='bg-green-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600 transition'>Completed</p>
+                  : (
                     <button onClick={()=>cancelAppointment(item._id)} className="bg-red-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600 transition">
                       Cancel
                     </button>

@@ -169,34 +169,45 @@ const MyAppointments = () => {
                 </div>
 
                 {/* Action Buttons */}
-                <div className='flex gap-2 sm:gap-3'>
-                  {!item.cancelled && item.payment && (
-                  <button className="w-56 bg-green-400 text-white px-1 py-2 font-medium transition-colors duration-300 shadow-sm hover:shadow-md text-sm sm:text-base">
-                    Paid
-                  </button>
-                )}
+                <div className="flex gap-2 sm:gap-3">
+                  {/* Paid */}
+                  {!item.cancelled && item.payment && !item.isCompleted && (
+                    <button className="w-56 bg-green-400 text-white px-1 py-2 font-medium transition-colors duration-300 shadow-sm hover:shadow-md text-sm sm:text-base">
+                      Paid
+                    </button>
+                  )}
 
-                  {!item.cancelled && !item.payment ? (
+                  {/* Not Paid & Not Cancelled */}
+                  {!item.cancelled && !item.payment && !item.isCompleted &&(
                     <>
                       <button
                         onClick={() => appointmentRazorpay(item._id)}
-                        className='flex-1 bg-green-500 text-white px-4 py-2.5 rounded-lg font-medium hover:bg-green-600 transition-colors duration-300 shadow-sm hover:shadow-md text-sm sm:text-base'
+                        className="flex-1 bg-green-500 text-white px-4 py-2.5 rounded-lg font-medium hover:bg-green-600 transition-colors duration-300 shadow-sm hover:shadow-md text-sm sm:text-base"
                       >
                         Pay Online
                       </button>
                       <button
                         onClick={() => cancelAppointment(item._id)}
-                        className='flex-1 bg-red-500 text-white px-4 py-2.5 rounded-lg font-medium hover:bg-red-600 transition-colors duration-300 shadow-sm hover:shadow-md text-sm sm:text-base'
+                        className="flex-1 bg-red-500 text-white px-4 py-2.5 rounded-lg font-medium hover:bg-red-600 transition-colors duration-300 shadow-sm hover:shadow-md text-sm sm:text-base"
                       >
                         Cancel Appointment
                       </button>
                     </>
-                  ) : (
-                    <button className='sm:min-w-48 py-2 border bg-red-200 border-red-700 rounded text-red-600'>
+                  )}
+
+                  {/* Cancelled */}
+                  {item.cancelled && !item.isCompleted && (
+                    <button className="sm:min-w-48 py-2 border bg-red-200 border-red-700 rounded text-red-600">
                       Appointment Cancelled
                     </button>
                   )}
+                 {item.isCompleted && (
+                      <button className="w-56 border border-green-600 bg-green-100 text-green-700 px-1 py-2 font-medium rounded-lg transition-colors duration-300 shadow-sm hover:bg-green-200 hover:shadow-md text-sm sm:text-base">
+                        Completed
+                      </button>
+                    )}
                 </div>
+
               </div>
             </div>
           ))}

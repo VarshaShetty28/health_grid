@@ -7,7 +7,7 @@ import { AppContext } from "../../context/AppContext";
 
 const Dashboard = () => {
   const { aToken, dashData, getDashData } = useContext(AdminContext) || {};
-  const {formatSlotDate} = useContext(AppContext)
+  const { formatSlotDate } = useContext(AppContext);
   useEffect(() => {
     if (aToken) {
       getDashData();
@@ -67,7 +67,7 @@ const Dashboard = () => {
           </div>
 
           {/* Latest Appointments Section */}
-         
+
           <div className="w-full bg-white shadow-md rounded-md p-6">
             <p className="text-lg font-semibold mb-4">Latest Bookings</p>
 
@@ -89,23 +89,24 @@ const Dashboard = () => {
                         <p className="font-medium text-gray-800">
                           {item.docData.name}
                         </p>
-                        <p className="text-sm text-gray-500">Booked on {formatSlotDate(item.slotDate)}</p>
+                        <p className="text-sm text-gray-500">
+                          Booked on {formatSlotDate(item.slotDate)}
+                        </p>
                       </div>
                     </div>
-                    <div>
-                      {item.cancelled ? (
-                        <p className="bg-red-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600 transition">
-                          Cancelled
-                        </p>
-                      ) : (
-                        <button
-                          onClick={() => cancelAppointment(item._id)}
-                          className="bg-red-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600 transition"
-                        >
-                          Cancel
-                        </button>
-                      )}
-                    </div>
+                    <div className="flex justify-center gap-2">
+                  {item.cancelled ? (
+                    <p className="bg-red-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600 transition">
+                      Cancelled
+                    </p>
+                  ) : item.isCompleted
+                  ? <p className='bg-green-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600 transition'>Completed</p>
+                  : (
+                    <button onClick={()=>cancelAppointment(item._id)} className="bg-red-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600 transition">
+                      Cancel
+                    </button>
+                  )}
+              </div>
                   </div>
                 ))}
               </div>

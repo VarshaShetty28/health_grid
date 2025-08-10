@@ -3,6 +3,7 @@ import { AdminContext } from "../context/AdminContext";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { DoctersContext } from "../context/DoctersContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [state, setState] = useState("Admin");
@@ -11,6 +12,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { setAToken, backendUrl } = useContext(AdminContext);
   const {setDToken} = useContext(DoctersContext)
+  const navigate = useNavigate();
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
@@ -38,6 +40,7 @@ const Login = () => {
           // Clear form
           setEmail("");
           setPassword("");
+          navigate("/admin-dashboard"); 
         } else {
           toast.error(data.message || "Login failed");
         }
@@ -59,6 +62,7 @@ const Login = () => {
           // Clear form
           setEmail("");
           setPassword("");
+          navigate("/doctor-dashboard"); 
         } else {
           toast.error(data.message || "Login failed");
         }

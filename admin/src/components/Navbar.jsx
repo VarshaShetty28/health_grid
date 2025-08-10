@@ -2,16 +2,24 @@ import React, { useContext } from 'react';
 import { AdminContext } from '../context/AdminContext';
 import Logo from '../assets/Logo_WithoutBG.png';
 import { useNavigate } from 'react-router-dom';
-import { FiLogOut } from 'react-icons/fi'; 
+import { FiLogOut } from 'react-icons/fi';
+import { DoctersContext } from '../context/DoctersContext';
 
 const Navbar = () => {
   const { aToken, setAToken } = useContext(AdminContext);
+  const { dToken, setDToken } = useContext(DoctersContext); 
   const navigate = useNavigate();
 
   const logout = () => {
+    if (aToken) {
+      setAToken('');
+      localStorage.removeItem('aToken');
+    }
+    if (dToken) {
+      setDToken('');
+      localStorage.removeItem('dToken');
+    }
     navigate('/');
-    aToken && setAToken('');
-    aToken && localStorage.removeItem('aToken');
   };
 
   return (
@@ -20,14 +28,14 @@ const Navbar = () => {
 
         {/* Left: Logo */}
         <div className="flex w-full justify-between items-center">
-          {/* Logo */}
           <img
             src={Logo}
             alt="Logo"
             className="w-36 sm:w-40 object-contain cursor-pointer ml-9"
+            onClick={() => navigate('/')}
           />
 
-          {/* Admin + Logout in mobile view */}
+          {/* Mobile view: role + logout icon */}
           <div className="flex md:hidden items-center gap-2">
             <span className="text-xs text-gray-600 border px-2 py-1 rounded-full border-gray-300 whitespace-nowrap">
               {aToken ? 'Admin' : 'Doctor'}
@@ -40,7 +48,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Right: Logout for desktop */}
+        {/* Desktop view: role + logout button */}
         <div className="hidden md:flex items-center gap-3">
           <span className="text-xs text-gray-600 border px-3 py-1 rounded-full border-gray-300 whitespace-nowrap">
             {aToken ? 'Admin' : 'Doctor'}
