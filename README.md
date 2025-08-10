@@ -1,6 +1,4 @@
-Sure! Here's the **entire README content in a single code block** for easy copying into your environment:
 
-````markdown
 # Doctor Appointment Booking System (MERN)
 
 A full-stack doctor appointment booking application built with **MongoDB, Express, React, and Node.js** allowing patients to book appointments, doctors to manage schedules, and admins to oversee the system.
