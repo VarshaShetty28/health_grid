@@ -102,7 +102,13 @@ A full-stack doctor appointment booking application built with **MongoDB, Expres
   </tr>
   <tr>
     <td><img src="ScreenShots/Doctor_Profile.png" alt="Doctor Profile" width="200" /><br><em>Doctor Profile</em></td>
+    <td><img src="ScreenShots/Appointments_Paid.png" alt="Appointments Paid" width="200" /><br><em>Appointments Paid</em></td>
+    <td><img src="ScreenShots/My_Appointments_Page.png" alt="My Appointments" width="200" /><br><em>My Appointments Page</em></td>
+  </tr>
+  <tr>
+    <td><img src="ScreenShots/Payment_page.png" alt="Payment Page" width="200" /><br><em>Payment Page</em></td>
     <td></td>
     <td></td>
   </tr>
 </table>
+
