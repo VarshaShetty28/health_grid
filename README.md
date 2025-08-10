@@ -84,73 +84,27 @@ A full-stack doctor appointment booking application built with **MongoDB, Expres
 * Admins can manage the system users and appointments.
 
 ---
-
 ## Screenshots
 
-### About Us Page
-
-![About Us](ScreenShots/About_Us.png)
-*Screenshot of the About Us page.*
-
-### Admin Add Doctor
-
-![Admin Add Doctor](ScreenShots/Admin_AddDoctor.png)
-*Admin panel to add a new doctor.*
-
-### Admin Appointments
-
-![Admin Appointments](ScreenShots/Admin_Appointments.png)
-*Admin view of all appointments.*
-
-### Admin Dashboard
-
-![Admin Dashboard](ScreenShots/Admin_Dashboard.png)
-*Main dashboard for admin overview.*
-
-### Admin Doctor List
-
-![Admin Doctor List](ScreenShots/Admin_DoctorList.png)
-*List of all doctors from admin panel.*
-
-### All Doctors Page (After Login)
-
-![All Doctors](ScreenShots/AllDoctorsPage_AfterLogin.png)
-*Page showing all doctors available to patients after login.*
-
-### Doctor Appointments
-
-![Doctor Appointments](ScreenShots/Doctor_Appointments.png)
-*Doctor’s view of their appointments.*
-
-### Doctor Dashboard
-
-![Doctor Dashboard](ScreenShots/Doctor_Dashboard.png)
-*Doctor’s dashboard interface.*
-
-### Home Page (Before Login)
-
-![Home Page](ScreenShots/HomePage_BeforeLogin.png)
-*Landing page before user login.*
-
-### Doctor Profile
-
-![Doctor Profile](ScreenShots/Doctor_Profile.png)
-*Doctor’s profile page.*
-
----
-
-## License
-
-MIT License
-
----
-
-## Contact
-
-Email: [your.email@example.com](mailto:your.email@example.com)
-
-```
-
-Just paste this whole block into your `README.md` file.  
-Let me know if you want me to generate and save the file for you!
-```
+<table>
+  <tr>
+    <td><img src="ScreenShots/About_Us.png" alt="About Us" width="200" /><br><em>About Us page</em></td>
+    <td><img src="ScreenShots/Admin_AddDoctor.png" alt="Admin Add Doctor" width="200" /><br><em>Admin Add Doctor</em></td>
+    <td><img src="ScreenShots/Admin_Appointments.png" alt="Admin Appointments" width="200" /><br><em>Admin Appointments</em></td>
+  </tr>
+  <tr>
+    <td><img src="ScreenShots/Admin_Dashboard.png" alt="Admin Dashboard" width="200" /><br><em>Admin Dashboard</em></td>
+    <td><img src="ScreenShots/Admin_DoctorList.png" alt="Admin Doctor List" width="200" /><br><em>Admin Doctor List</em></td>
+    <td><img src="ScreenShots/AllDoctorsPage_AfterLogin.png" alt="All Doctors" width="200" /><br><em>All Doctors (After Login)</em></td>
+  </tr>
+  <tr>
+    <td><img src="ScreenShots/Doctor_Appointments.png" alt="Doctor Appointments" width="200" /><br><em>Doctor Appointments</em></td>
+    <td><img src="ScreenShots/Doctor_Dashboard.png" alt="Doctor Dashboard" width="200" /><br><em>Doctor Dashboard</em></td>
+    <td><img src="ScreenShots/HomePage_BeforeLogin.png" alt="Home Page" width="200" /><br><em>Home Page (Before Login)</em></td>
+  </tr>
+  <tr>
+    <td><img src="ScreenShots/Doctor_Profile.png" alt="Doctor Profile" width="200" /><br><em>Doctor Profile</em></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
