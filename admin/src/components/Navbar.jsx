@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { AdminContext } from '../context/AdminContext';
-import Logo from '../assets/Logo_WithoutBG.png';
+import Logo from '../assets/Logo_WithoutBg.png';
 import { useNavigate } from 'react-router-dom';
 import { FiLogOut } from 'react-icons/fi';
 import { DoctersContext } from '../context/DoctersContext';
