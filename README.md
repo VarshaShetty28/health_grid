@@ -77,6 +77,7 @@ A full-stack doctor appointment booking application built with **MongoDB, Expres
 ## Usage
 
 * Register as a patient, doctor, or admin.
+* payment gateway using Razorpay user can pay online or cash.
 * Patients can book appointments with doctors.
 * Doctors can manage their schedules.
 * Admins can manage the system users and appointments.
