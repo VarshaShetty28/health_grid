@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { AdminContext } from "../context/AdminContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { DoctersContext } from "../context/DoctersContext";
 
 const Login = () => {
   const [state, setState] = useState("Admin");
@@ -9,6 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { setAToken, backendUrl } = useContext(AdminContext);
+  const {setDToken} = useContext(DoctersContext)
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
@@ -41,7 +43,25 @@ const Login = () => {
         }
       } else {
         // For Doctor login (future use)
-        toast.info("Doctor login not yet implemented.");
+        const {data} = await axios.post(backendUrl + '/api/doctor/login', {email, password})
+        if (data.success) {
+          // Clear any existing token first
+          localStorage.removeItem('dToken');
+          
+          // Store new token
+          localStorage.setItem('dToken', data.token);
+          setDToken(data.token);
+          console.log(data.token);
+          
+          
+          toast.success("Login successful!");
+          
+          // Clear form
+          setEmail("");
+          setPassword("");
+        } else {
+          toast.error(data.message || "Login failed");
+        }
       }
     } catch (error) {
       console.error("Login error:", error.response?.data || error.message);

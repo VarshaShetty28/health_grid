@@ -11,6 +11,9 @@ const addDoctor = async (req, res) => {
         const { name, email, password, speciality, degree, experience, about, fees, address } = req.body;
         const imageFile = req.file;
 
+        console.log("Request body:", req.body); // Debug log
+        console.log("Image file:", imageFile); // Debug log
+
         // Check for missing fields
         if (!name || !email || !password || !speciality || !degree || !experience || !about || !fees || !address) {
             return res.status(400).json({ success: false, message: "Missing details" });
@@ -51,7 +54,7 @@ const addDoctor = async (req, res) => {
         // Parse address safely
         let parsedAddress;
         try {
-            parsedAddress = JSON.parse(address);
+            parsedAddress = typeof address === 'string' ? JSON.parse(address) : address;
         } catch (error) {
             return res.status(400).json({ success: false, message: "Invalid address format" });
         }
@@ -68,7 +71,8 @@ const addDoctor = async (req, res) => {
             fees: Number(fees), // Ensure fees is a number
             address: parsedAddress,
             available: true, // Default to available
-            date: Date.now()
+            date: Date.now(),
+            slots_booked: {} // Initialize empty slots_booked object
         };
 
         const newDoctor = new docterModel(doctorData);
@@ -77,7 +81,7 @@ const addDoctor = async (req, res) => {
         res.status(201).json({ success: true, message: "Doctor added successfully" });
     } catch (error) {
         console.log("Add Doctor Error:", error);
-        res.status(500).json({ success: false, message: "Server error while adding doctor" });
+        res.status(500).json({ success: false, message: "Server error while adding doctor", error: error.message });
     }
 };
 
@@ -192,10 +196,10 @@ const changeAvailability = async (req, res) => {
         res.status(500).json({ success: false, message: "Server error while changing availability" });
     }
 };
+
 //API for appointments cancellation
 const appointmentCancel = async (req, res) => {
   try {
-
     const { appointmentId } = req.body;
 
     const appointmentData = await appointmntModel.findById(appointmentId);
@@ -203,15 +207,18 @@ const appointmentCancel = async (req, res) => {
     if (!appointmentData) {
       return res.json({ success: false, message: "Appointment not found" });
     }
+    
     await appointmntModel.findByIdAndUpdate(appointmentId, { cancelled: true });
 
     const { docId, slotDate, slotTime } = appointmentData;
     const doctorData = await docterModel.findById(docId);
 
-    let slots_booked = doctorData.slots_booked;
-    slots_booked[slotDate] = slots_booked[slotDate].filter(
-      (e) => e !== slotTime
-    );
+    let slots_booked = doctorData.slots_booked || {};
+    if (slots_booked[slotDate]) {
+      slots_booked[slotDate] = slots_booked[slotDate].filter(
+        (e) => e !== slotTime
+      );
+    }
 
     await docterModel.findByIdAndUpdate(docId, { slots_booked });
 
@@ -223,7 +230,6 @@ const appointmentCancel = async (req, res) => {
 };
 
 //api for dashboard
-
 const adminDashboard = async (req,res) => {
     try{
         const doctors = await docterModel.find({})
@@ -234,7 +240,6 @@ const adminDashboard = async (req,res) => {
             appointments: appointments.length,
             patients: users.length,
             latestAppointments: appointments.reverse().slice(0,5)
-
         }
         res.json({success: true, dash_data})
 
@@ -243,4 +248,5 @@ const adminDashboard = async (req,res) => {
         res.json({ success: false, message: error.message });
     }
 }
+
 export { addDoctor, loginAdmin, allDoctors, appointmentsAdmin, changeAvailability, appointmentCancel, adminDashboard };

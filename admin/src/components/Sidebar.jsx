@@ -4,9 +4,11 @@ import { NavLink } from 'react-router-dom';
 import home_icon from '../assets/home_icon.svg';
 import appointment_icon from '../assets/appointment_icon.svg';
 import doctor_icon from '../assets/people_icon.svg';
+import { DoctersContext } from '../context/DoctersContext';
 
 const Sidebar = () => {
   const { aToken } = useContext(AdminContext);
+  const { dToken } = useContext(DoctersContext);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -49,34 +51,27 @@ const Sidebar = () => {
           ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}
       >
+        {/* Admin Panel Links */}
         {aToken && (
           <nav className="h-full flex flex-col px-6 py-8" aria-label="Sidebar Navigation">
             <h2 className="text-xl font-semibold text-blue-700 mb-8">Admin Panel</h2>
             <ul className="space-y-3">
-              <SidebarLink
-                to="/admin-dashboard"
-                icon={home_icon}
-                label="Dashboard"
-                closeMobileMenu={closeMobileMenu}
-              />
-              <SidebarLink
-                to="/all-appointments"
-                icon={appointment_icon}
-                label="Appointments"
-                closeMobileMenu={closeMobileMenu}
-              />
-              <SidebarLink
-                to="/add-doctors"
-                icon={doctor_icon}
-                label="Add Doctor"
-                closeMobileMenu={closeMobileMenu}
-              />
-              <SidebarLink
-                to="/doctor-list"
-                icon={doctor_icon}
-                label="Doctors List"
-                closeMobileMenu={closeMobileMenu}
-              />
+              <SidebarLink to="/admin-dashboard" icon={home_icon} label="Dashboard" closeMobileMenu={closeMobileMenu} />
+              <SidebarLink to="/all-appointments" icon={appointment_icon} label="Appointments" closeMobileMenu={closeMobileMenu} />
+              <SidebarLink to="/add-doctors" icon={doctor_icon} label="Add Doctor" closeMobileMenu={closeMobileMenu} />
+              <SidebarLink to="/doctor-list" icon={doctor_icon} label="Doctors List" closeMobileMenu={closeMobileMenu} />
+            </ul>
+          </nav>
+        )}
+
+        {/* Doctor Panel Links */}
+        {dToken && !aToken && (
+          <nav className="h-full flex flex-col px-6 py-8" aria-label="Sidebar Navigation">
+            <h2 className="text-xl font-semibold text-blue-700 mb-8">Doctor Panel</h2>
+            <ul className="space-y-3">
+              <SidebarLink to="/doctor-dashboard" icon={home_icon} label="Dashboard" closeMobileMenu={closeMobileMenu} />
+              <SidebarLink to="/doctor-appointments" icon={appointment_icon} label="My Appointments" closeMobileMenu={closeMobileMenu} />
+              <SidebarLink to="/doctor-profile" icon={doctor_icon} label="Profile" closeMobileMenu={closeMobileMenu} />
             </ul>
           </nav>
         )}
