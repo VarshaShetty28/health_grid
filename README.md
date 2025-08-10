@@ -146,5 +146,5 @@ Admins can manage the system users and appointments.
 
 <p align="center">
   <img src="./ScreenShots/Payment_page.png" alt="Payment Page" width="48%" />
-  <br><em>Payment Page</em>
+  <br><em>Payment Page(Dummy data is used here for the test mode)</em>
 </p>
