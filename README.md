@@ -67,7 +67,7 @@ Admins can manage the system users and appointments.
 
 ## Screenshots
 
-<div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+<div style="display: flex; flex-wrap: wrap; justify-content: flex-start;">
 
   <div style="flex: 0 0 48%; margin-bottom: 20px;">
     <img src="./ScreenShots/About_Us.png" alt="About Us" style="width: 100%;" />
@@ -129,11 +129,13 @@ Admins can manage the system users and appointments.
     <p><em>My Appointments Page</em></p>
   </div>
 
-  <div style="flex: 0 0 48%; margin-bottom: 20px;">
+  <!-- LAST IMAGE: center it if alone -->
+  <div style="flex: 0 0 48%; margin-bottom: 20px; margin-left: 26%;">
     <img src="./ScreenShots/Payment_page.png" alt="Payment Page" style="width: 100%;" />
     <p><em>Payment Page</em></p>
   </div>
 
 </div>
+
 
  ```
