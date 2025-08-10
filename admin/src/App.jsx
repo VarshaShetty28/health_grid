@@ -28,7 +28,10 @@ const App = () => {
           <Sidebar />
         </div>
         <Routes>
-          {/* Redirect root based on login */}
+          {/* Login Page */}
+          <Route path="/login" element={<Login />} />
+
+          {/* Redirect root */}
           <Route
             path="/"
             element={
@@ -37,10 +40,12 @@ const App = () => {
               ) : dToken ? (
                 <Navigate to="/doctor-dashboard" replace />
               ) : (
-                <Login />
+                <Navigate to="/login" replace />
               )
             }
           />
+
+          {/* Admin Routes */}
           <Route path="/admin-dashboard" element={<Dashborad />} />
           <Route path="/all-appointments" element={<AllAppointment />} />
           <Route path="/add-doctors" element={<AddDoctor />} />
