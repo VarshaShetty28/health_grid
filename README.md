@@ -67,75 +67,88 @@ Admins can manage the system users and appointments.
 
 ## Screenshots
 
-<div style="display: flex; flex-wrap: wrap; justify-content: flex-start;">
+<div style="display: flex; flex-wrap: wrap;">
 
-  <div style="flex: 0 0 48%; margin-bottom: 20px;">
+  <!-- 1st image -->
+  <div style="flex-basis: 48%; margin-bottom: 20px; margin-right: 4%;">
     <img src="./ScreenShots/About_Us.png" alt="About Us" style="width: 100%;" />
     <p><em>About Us page</em></p>
   </div>
 
-  <div style="flex: 0 0 48%; margin-bottom: 20px;">
+  <!-- 2nd image -->
+  <div style="flex-basis: 48%; margin-bottom: 20px;">
     <img src="./ScreenShots/Admin_AddDoctor.png" alt="Admin Add Doctor" style="width: 100%;" />
     <p><em>Admin Add Doctor</em></p>
   </div>
 
-  <div style="flex: 0 0 48%; margin-bottom: 20px;">
+  <!-- 3rd image -->
+  <div style="flex-basis: 48%; margin-bottom: 20px; margin-right: 4%;">
     <img src="./ScreenShots/Admin_Appointments.png" alt="Admin Appointments" style="width: 100%;" />
     <p><em>Admin Appointments</em></p>
   </div>
 
-  <div style="flex: 0 0 48%; margin-bottom: 20px;">
+  <!-- 4th image -->
+  <div style="flex-basis: 48%; margin-bottom: 20px;">
     <img src="./ScreenShots/Admin_Dashboard.png" alt="Admin Dashboard" style="width: 100%;" />
     <p><em>Admin Dashboard</em></p>
   </div>
 
-  <div style="flex: 0 0 48%; margin-bottom: 20px;">
+  <!-- 5th image -->
+  <div style="flex-basis: 48%; margin-bottom: 20px; margin-right: 4%;">
     <img src="./ScreenShots/Admin_DoctorList.png" alt="Admin Doctor List" style="width: 100%;" />
     <p><em>Admin Doctor List</em></p>
   </div>
 
-  <div style="flex: 0 0 48%; margin-bottom: 20px;">
+  <!-- 6th image -->
+  <div style="flex-basis: 48%; margin-bottom: 20px;">
     <img src="./ScreenShots/AllDoctorsPage_AfterLogin.png" alt="All Doctors" style="width: 100%;" />
     <p><em>All Doctors (After Login)</em></p>
   </div>
 
-  <div style="flex: 0 0 48%; margin-bottom: 20px;">
+  <!-- 7th image -->
+  <div style="flex-basis: 48%; margin-bottom: 20px; margin-right: 4%;">
     <img src="./ScreenShots/Doctor_Appointments.png" alt="Doctor Appointments" style="width: 100%;" />
     <p><em>Doctor Appointments</em></p>
   </div>
 
-  <div style="flex: 0 0 48%; margin-bottom: 20px;">
+  <!-- 8th image -->
+  <div style="flex-basis: 48%; margin-bottom: 20px;">
     <img src="./ScreenShots/Doctor_Dashboard.png" alt="Doctor Dashboard" style="width: 100%;" />
     <p><em>Doctor Dashboard</em></p>
   </div>
 
-  <div style="flex: 0 0 48%; margin-bottom: 20px;">
+  <!-- 9th image -->
+  <div style="flex-basis: 48%; margin-bottom: 20px; margin-right: 4%;">
     <img src="./ScreenShots/HomePage_BeforeLogin.png" alt="Home Page" style="width: 100%;" />
     <p><em>Home Page (Before Login)</em></p>
   </div>
 
-  <div style="flex: 0 0 48%; margin-bottom: 20px;">
+  <!-- 10th image -->
+  <div style="flex-basis: 48%; margin-bottom: 20px;">
     <img src="./ScreenShots/Doctor_Profile.png" alt="Doctor Profile" style="width: 100%;" />
     <p><em>Doctor Profile</em></p>
   </div>
 
-  <div style="flex: 0 0 48%; margin-bottom: 20px;">
+  <!-- 11th image -->
+  <div style="flex-basis: 48%; margin-bottom: 20px; margin-right: 4%;">
     <img src="./ScreenShots/Appointments_Paid.png" alt="Appointments Paid" style="width: 100%;" />
     <p><em>Appointments Paid</em></p>
   </div>
 
-  <div style="flex: 0 0 48%; margin-bottom: 20px;">
+  <!-- 12th image -->
+  <div style="flex-basis: 48%; margin-bottom: 20px;">
     <img src="./ScreenShots/My_Appointments_Page.png" alt="My Appointments" style="width: 100%;" />
     <p><em>My Appointments Page</em></p>
   </div>
 
-  <!-- LAST IMAGE: center it if alone -->
-  <div style="flex: 0 0 48%; margin-bottom: 20px; margin-left: 26%;">
+  <!-- LAST IMAGE: center it -->
+  <div style="flex-basis: 48%; margin-left: 26%; margin-bottom: 20px;">
     <img src="./ScreenShots/Payment_page.png" alt="Payment Page" style="width: 100%;" />
     <p><em>Payment Page</em></p>
   </div>
 
 </div>
+
 
 
  ```
