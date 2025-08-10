@@ -39,34 +39,19 @@ A full-stack doctor appointment booking application built with **MongoDB, Expres
    ```bash
    cd backend
    npm install
-Install frontend dependencies:
-
-bash
-Copy
-Edit
-cd ../frontend
-npm install
-Setup .env file in backend folder:
-
-ini
-Copy
-Edit
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret_key
-Start backend server:
-
-bash
-Copy
-Edit
-npm start
-Start frontend app:
-
-bash
-Copy
-Edit
-cd ../frontend
-npm start
+3. Install frontend dependencies:
+   cd ../frontend
+   npm install
+4.Setup .env file in backend folder:
+   PORT=5000
+   MONGO_URI=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret_key
+5.Start backend server:
+   npm start
+6.Start frontend app:
+   cd ../frontend
+   npm start
+   
 Visit http://localhost:3000 in your browser.
 
 Usage
@@ -80,5 +65,36 @@ Doctors can manage their schedules.
 
 Admins can manage the system users and appointments.
 
-Screenshots
-<table> <tr> <td><img src="./ScreenShots/About_Us.png" alt="About Us" width="200" /><br><em>About Us page</em></td> <td><img src="./ScreenShots/Admin_AddDoctor.png" alt="Admin Add Doctor" width="200" /><br><em>Admin Add Doctor</em></td> <td><img src="./ScreenShots/Admin_Appointments.png" alt="Admin Appointments" width="200" /><br><em>Admin Appointments</em></td> </tr> <tr> <td><img src="./ScreenShots/Admin_Dashboard.png" alt="Admin Dashboard" width="200" /><br><em>Admin Dashboard</em></td> <td><img src="./ScreenShots/Admin_DoctorList.png" alt="Admin Doctor List" width="200" /><br><em>Admin Doctor List</em></td> <td><img src="./ScreenShots/AllDoctorsPage_AfterLogin.png" alt="All Doctors" width="200" /><br><em>All Doctors (After Login)</em></td> </tr> <tr> <td><img src="./ScreenShots/Doctor_Appointments.png" alt="Doctor Appointments" width="200" /><br><em>Doctor Appointments</em></td> <td><img src="./ScreenShots/Doctor_Dashboard.png" alt="Doctor Dashboard" width="200" /><br><em>Doctor Dashboard</em></td> <td><img src="./ScreenShots/HomePage_BeforeLogin.png" alt="Home Page" width="200" /><br><em>Home Page (Before Login)</em></td> </tr> <tr> <td><img src="./ScreenShots/Doctor_Profile.png" alt="Doctor Profile" width="200" /><br><em>Doctor Profile</em></td> <td><img src="./ScreenShots/Appointments_Paid.png" alt="Appointments Paid" width="200" /><br><em>Appointments Paid</em></td> <td><img src="./ScreenShots/My_Appointments_Page.png" alt="My Appointments" width="200" /><br><em>My Appointments Page</em></td> </tr> <tr> <td><img src="./ScreenShots/Payment_page.png" alt="Payment Page" width="200" /><br><em>Payment Page</em></td> <td></td> <td></td> </tr> </table> ```
+## Screenshots
+
+<table>
+  <tr>
+    <td><img src="./ScreenShots/About_Us.png" alt="About Us" width="200" /><br><em>About Us page</em></td>
+    <td><img src="./ScreenShots/Admin_AddDoctor.png" alt="Admin Add Doctor" width="200" /><br><em>Admin Add Doctor</em></td>
+  </tr>
+  <tr>
+    <td><img src="./ScreenShots/Admin_Appointments.png" alt="Admin Appointments" width="200" /><br><em>Admin Appointments</em></td>
+    <td><img src="./ScreenShots/Admin_Dashboard.png" alt="Admin Dashboard" width="200" /><br><em>Admin Dashboard</em></td>
+  </tr>
+  <tr>
+    <td><img src="./ScreenShots/Admin_DoctorList.png" alt="Admin Doctor List" width="200" /><br><em>Admin Doctor List</em></td>
+    <td><img src="./ScreenShots/AllDoctorsPage_AfterLogin.png" alt="All Doctors" width="200" /><br><em>All Doctors (After Login)</em></td>
+  </tr>
+  <tr>
+    <td><img src="./ScreenShots/Doctor_Appointments.png" alt="Doctor Appointments" width="200" /><br><em>Doctor Appointments</em></td>
+    <td><img src="./ScreenShots/Doctor_Dashboard.png" alt="Doctor Dashboard" width="200" /><br><em>Doctor Dashboard</em></td>
+  </tr>
+  <tr>
+    <td><img src="./ScreenShots/HomePage_BeforeLogin.png" alt="Home Page" width="200" /><br><em>Home Page (Before Login)</em></td>
+    <td><img src="./ScreenShots/Doctor_Profile.png" alt="Doctor Profile" width="200" /><br><em>Doctor Profile</em></td>
+  </tr>
+  <tr>
+    <td><img src="./ScreenShots/Appointments_Paid.png" alt="Appointments Paid" width="200" /><br><em>Appointments Paid</em></td>
+    <td><img src="./ScreenShots/My_Appointments_Page.png" alt="My Appointments" width="200" /><br><em>My Appointments Page</em></td>
+  </tr>
+  <tr>
+    <td><img src="./ScreenShots/Payment_page.png" alt="Payment Page" width="200" /><br><em>Payment Page</em></td>
+    <td></td>
+  </tr>
+</table>
+ ```
