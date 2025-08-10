@@ -44,7 +44,7 @@ const Navbar = () => {
 
           {/* Admin Link */}
           <a
-            href='https://health-grid-admin.onrender.com/admin-dashboard'
+            href='https://health-grid-admin.onrender.com'
             target='_blank'
             rel='noopener noreferrer'
             className='px-3 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition'
@@ -146,7 +146,7 @@ const Navbar = () => {
 
           {/* Admin Link in Mobile */}
           <a
-            href='https://health-grid-admin.onrender.com/admin-dashboard'
+            href='https://health-grid-admin.onrender.com'
             target='_blank'
             rel='noopener noreferrer'
             onClick={() => setShowMenu(false)}
